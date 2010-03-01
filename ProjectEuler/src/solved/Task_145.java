@@ -1,0 +1,39 @@
+package solved;
+
+import static utils.MyMath.*;
+import static java.lang.Math.*;
+import java.util.Arrays;
+import static utils.OtherUtils.*;
+import tasks.ITask;
+
+public class Task_145 implements ITask {
+    public void solving() {
+        int res = 0;
+
+        for (int i = 0; i < 1000000000; ++i) {
+            if (i%10000000 == 0) {
+                System.out.println(i);
+            }
+            if ( isOk(i) ) {
+                res += 2;
+//                System.out.println(i);
+            }
+        }
+
+        System.out.println(res);
+    }
+
+    private boolean isOk(int i) {
+        if (i%10 == 0) return false;
+        int j = Integer.parseInt(new StringBuilder(""+i).reverse().toString());
+        if (j >= i) return false;
+
+        String s = "" + (j + i);
+        for (int k = 0; k < s.length(); ++k) {
+            int d = s.charAt(k) - '0';
+            if (d%2==0) return false;
+        }
+
+        return true;
+    }
+}
