@@ -1,9 +1,12 @@
 package tasks;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import utils.log.Logger;
 
-//Answer :
+//Answer : 0.999992836187
 public class Task_267 implements ITask {
 
     public static void main(String[] args) {
@@ -17,53 +20,19 @@ public class Task_267 implements ITask {
 
     final double eps = 1e-13;
     public void solving() {
-        double mnf = eps/2;
-        double mxf = 1-eps/2;
+        //S = (1+2f)^p * (1-f)^(1000-p)
+        //                    9*ln(10) - 1000*ln(1-f)
+        //ln => .. ==> p >= [------------------------] = f(f)
+        //                     ln( (1+2f)/(1-f) )
+        //==>
+        // http://www.wolframalpha.com/input/?i=minimum+[%289*ln%2810%29+-+1000*ln%281-f%29%29%2Fln%28+%281%2B2*f%29%2F%281-f%29+%29]%2C+f%3E0%2C+f%3C1
+        //  min(f) = f(~0.147) = 431.3
+        //==> p>=432
+        // prob(win) = sum(i=432,1000)C(1000, i) / sum(j=0,1000)C(1000, j)
 
-        while (Math.abs(mnf - mxf) > eps) {
-            double mf1 = (2 * mnf + mxf) / 3;
-            double mf2 = (mnf + 2 * mxf) / 3;
-
-            double p1 = getProb(mf1);
-            double p2 = getProb(mf2);
-
-
-            if (p1 > p2) {
-                mxf = mf2;
-            } else {
-                mnf = mf1;
-            }
-            System.out.println(mnf);
-            System.out.println("    " + mxf);
-        }
-
-        System.out.println("------------------------");
-        System.out.println(mnf);
-        System.out.println(mxf);
-    }
-
-    double getProb(double f) {
-        double good = 0;
-        double all = 0;
-
-        BigDecimal f1 = BigDecimal.valueOf(1 - f);
-        BigDecimal f2 = BigDecimal.valueOf(1 + 2 * f);
-        BigDecimal f12 = BigDecimal.valueOf((1 - f) * (1 + 2 * f));
-
-
-        for (int p = 0; p <= n; ++p) {
-            int q = n - p;
-
-            BigDecimal b = p > q
-                    ? f12.pow(q).multiply(f2.pow(p - q))
-                    : f12.pow(p).multiply(f1.pow(q - p));
-
-            if (b.compareTo(bbill) > 0) {
-                good++;
-            }
-            all++;
-        }
-
-        return good / all;
+        System.out.println(new BigDecimal("10715009310986706622976830743544649495896214324259539098932264049072379314512407232073833609668321252964102895207546891849796548713857479451589212314427736531426024278186731964268619965741567042236755578759455447651526922789161844269327874331783632919701274345086491008794818316051766995043968604093048")
+                .divide(
+                new BigDecimal("10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376"))
+                .round(new MathContext(12)));
     }
 }
