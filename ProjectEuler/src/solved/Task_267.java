@@ -1,9 +1,11 @@
-package tasks;
+package solved;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import tasks.ITask;
+import tasks.Tester;
 import utils.log.Logger;
 
 //Answer : 0.999992836187

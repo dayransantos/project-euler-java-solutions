@@ -69,6 +69,45 @@ public class STLUtils {
         return next_permutation(a, a.length);
     }
 
+    public static boolean next_permutation(int a[], int n) {
+        if (n == 0 || n==1) return false;
+
+        int next = n-1;
+//        while (a[next-1] < a[next]) {
+//
+//        }
+        for ( ; ; ) {
+            // find rightmost element smaller than successor
+            int next1 = next;
+            if (a[--next] < a[next1]) {
+                // swap with rightmost element that's smaller, flip suffix
+                int mid = n;
+                while (a[next] >= a[--mid]);
+                swap(a, next, mid);
+                reverse(a, next1, n-1);
+                return true;
+            }
+
+            if (next == 0) {
+                // pure descending, flip all
+                reverse( a, 0, n-1 );
+                return false;
+            }
+        }
+
+//        return true;
+    }
+
+    private static void swap(int a[], int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    public static boolean next_permutation(int a[]) {
+        return next_permutation(a, a.length);
+    }
+
     public static void reverse(long a[], int b, int e) {
         if (!(b <= e)) {
             throw new IllegalArgumentException("Wrong begin & end");
@@ -82,6 +121,22 @@ public class STLUtils {
     }
 
     public static void reverse(long a[]) {
+        reverse(a, 0, a.length-1);
+    }
+
+    public static void reverse(int a[], int b, int e) {
+        if (!(b <= e)) {
+            throw new IllegalArgumentException("Wrong begin & end");
+        }
+
+        for (; b < e; ++b, --e) {
+            int t = a[b];
+            a[b] = a[e];
+            a[e] = t;
+        }
+    }
+
+    public static void reverse(int a[]) {
         reverse(a, 0, a.length-1);
     }
 
