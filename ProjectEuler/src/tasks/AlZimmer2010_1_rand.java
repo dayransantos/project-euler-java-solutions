@@ -19,7 +19,7 @@ public class AlZimmer2010_1_rand implements ITask {
         Tester.test(new AlZimmer2010_1_rand());
         Logger.close();
     }
-    public static final int primes[] = new int[]{2, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+    public static final int primes[] = new int[]{17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
     int bs[];
     int cs[];
     int ts[];
