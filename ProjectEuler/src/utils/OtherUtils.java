@@ -1,9 +1,6 @@
 package utils;
 
-import java.text.DecimalFormat;
 import java.util.Arrays;
-import java.util.Collections;
-import javax.swing.text.NumberFormatter;
 
 public class OtherUtils {
     public static boolean isPalindrom(String s) {
@@ -119,6 +116,18 @@ public class OtherUtils {
         return arrayToString(array, 0, array.length);
     }
 
+    public static void deepFillObject(Object array, Object val) {
+        Object[] arr = (Object[]) array;
+        for (int i = 0; i < arr.length; i++) {
+            Object child = arr[i];
+            if (child != null && child.getClass().isArray()) {
+                deepFillObject(child, val);
+            } else {
+                arr[i] = val;
+            }
+        }
+    }
+
     public static void deepFillLong(Object array, long val) {
         if (array instanceof long[]) {
             Arrays.fill((long[]) array, val);
@@ -162,5 +171,9 @@ public class OtherUtils {
         } else {
             return "" + n;
         }
+    }
+
+    public static String formatDouble(double v, int precision) {
+        return String.format("%." + precision + "f", v);
     }
 }
