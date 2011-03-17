@@ -1,11 +1,5 @@
 package tasks;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import tasks.*;
-import solved.*;
-
 public class Tester {
     public static void test(ITask task) {
         long begTime = System.currentTimeMillis();

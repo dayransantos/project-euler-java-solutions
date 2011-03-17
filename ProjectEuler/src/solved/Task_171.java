@@ -1,10 +1,9 @@
 package solved;
 
-import tasks.*;
-import java.math.BigInteger;
 import tasks.ITask;
 import tasks.Tester;
-import static utils.MyMath.*;
+
+import static utils.MyMath.isExactSquare;
 
 //Answer : 142989277
 public class Task_171 implements ITask {

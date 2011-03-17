@@ -1,14 +1,16 @@
 package solved;
 
-import static utils.MyMath.isBitSet;
-import static utils.MyMath.setBit;
-import utils.OtherUtils;
-
-import java.io.*;
-import java.util.Scanner;
-
 import tasks.ITask;
 import tasks.Tester;
+import utils.OtherUtils;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
+import static utils.MyMath.isBitSet;
+import static utils.MyMath.setBit;
 
 //Answer : 44680
 public class Task_118 implements ITask {

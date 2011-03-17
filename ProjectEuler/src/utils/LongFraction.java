@@ -1,7 +1,5 @@
 package utils;
 
-import static utils.MyMath.*;
-
 public class LongFraction implements Comparable<LongFraction> {
     public static LongFraction ZERO = new LongFraction(0, 1);
     public static LongFraction ONE = new LongFraction(1, 1);

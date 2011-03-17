@@ -1,13 +1,9 @@
 package tasks;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
+import java.util.ArrayList;
+import java.util.TreeSet;
+
 import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
 
 //Answer :
 public class Task_248 implements ITask {

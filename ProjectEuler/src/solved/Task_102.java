@@ -1,7 +1,8 @@
 package solved;
 
-import java.awt.*;
 import tasks.ITask;
+
+import java.awt.*;
 
 //Answer : 228
 public class Task_102 implements ITask {

@@ -1,15 +1,7 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+import tasks.ITask;
+import tasks.Tester;
 
 //Answer : 1.710637717
 public class Task_197 implements ITask {

@@ -1,12 +1,13 @@
 package solved;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import tasks.ITask;
 import tasks.Tester;
 import utils.MyMath;
 import utils.log.Logger;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 //Answer : 1111981904675169
 public class Task_303 implements ITask {

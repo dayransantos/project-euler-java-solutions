@@ -1,10 +1,10 @@
 package solved;
 
-import static utils.MyMath.*;
+import tasks.ITask;
 
 import java.util.Arrays;
 
-import tasks.ITask;
+import static utils.MyMath.getPrimesBetween;
 
 //Answer : 2969 6299 9629
 public class Task_049 implements ITask {

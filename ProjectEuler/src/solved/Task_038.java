@@ -1,11 +1,8 @@
 package solved;
 
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import static utils.OtherUtils.*;
-import java.util.Arrays;
-
 import tasks.ITask;
+
+import java.util.Arrays;
 
 public class Task_038 implements ITask {
     public void solving() {

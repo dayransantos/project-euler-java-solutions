@@ -1,18 +1,15 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import java.text.NumberFormat;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import javax.swing.text.NumberFormatter;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static java.math.BigInteger.*;
-import static utils.Combinatoric.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+
+import static java.math.BigInteger.ZERO;
+import static utils.Combinatoric.C;
+import static utils.Combinatoric.factorial;
 
 //Answer : 0.001887854841
 public class Task_239 implements ITask {

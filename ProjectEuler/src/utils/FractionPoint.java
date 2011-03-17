@@ -1,7 +1,5 @@
 package utils;
 
-import utils.LongFraction;
-
 public class FractionPoint {
 
     public LongFraction x;

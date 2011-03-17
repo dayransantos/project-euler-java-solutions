@@ -1,9 +1,9 @@
 package utils;
 
-import java.math.BigInteger;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
-import static utils.MyMath.*;
+import static utils.MyMath.gcd;
 
 public class Fraction implements Comparable<Fraction> {
     public static final Fraction ZERO = new Fraction(0, 1);

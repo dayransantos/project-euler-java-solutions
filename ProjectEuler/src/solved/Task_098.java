@@ -1,14 +1,12 @@
 package solved;
 
-import tasks.*;
+import tasks.ITask;
+import tasks.Tester;
+
 import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
+
+import static java.lang.Math.max;
+import static utils.MyMath.isExactSquare;
 
 //Answer : 18769
 public class Task_098 implements ITask {

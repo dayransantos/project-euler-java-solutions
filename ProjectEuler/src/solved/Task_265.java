@@ -1,10 +1,11 @@
 package solved;
 
-import java.util.Arrays;
 import tasks.ITask;
 import tasks.Tester;
 import utils.MyMath;
 import utils.log.Logger;
+
+import java.util.Arrays;
 
 //Answer : 209110240768
 public class Task_265 implements ITask {

@@ -1,17 +1,9 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static java.lang.Integer.*;
-import static java.lang.Long.*;
-
 import tasks.ITask;
+
+import static java.lang.Math.min;
+import static utils.MyMath.isExactSquare;
 
 //Answer : 1818 | 1000457
 public class Task_086 implements ITask {

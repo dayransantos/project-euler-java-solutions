@@ -1,15 +1,13 @@
 package tasks;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
+import utils.log.Logger;
+
+import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
-import utils.log.Logger;
-import static utils.STLUtils.*;
+
+import static utils.STLUtils.reverse;
 
 //Answer :
 public class AlZimmer2010_1_rand implements ITask {

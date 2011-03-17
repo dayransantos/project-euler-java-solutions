@@ -1,8 +1,7 @@
 package solved;
 
-import static utils.MyMath.*;
-import utils.Fraction;
 import tasks.ITask;
+import utils.Fraction;
 
 public class Task_065 implements ITask {
     public void solving() {

@@ -1,8 +1,8 @@
 package solved;
 
-import utils.OtherUtils;
 import tasks.ITask;
 import tasks.Tester;
+import utils.OtherUtils;
 
 //Answer : 38182
 public class Task_109 implements ITask {

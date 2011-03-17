@@ -1,13 +1,9 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import static utils.MyMath.getCachedPrimes;
+import static utils.MyMath.isPrime;
 
 //Answer : 997651
 public class Task_050 implements ITask {

@@ -1,10 +1,14 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
+import tasks.ITask;
+import tasks.Tester;
+import utils.Fraction;
+import utils.LongFraction;
+
+import java.util.HashSet;
+
+import static java.lang.Math.sqrt;
+import static utils.MyMath.isExactSquare;
 
 //Answer : 285196020571078987
 public class Task_181 implements ITask {

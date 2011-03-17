@@ -1,7 +1,9 @@
 package solved;
 
-import tasks.*;
-import static utils.OtherUtils.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import static utils.OtherUtils.deepFillDouble;
 
 //Answer : 3780.618622
 public class Task_227 implements ITask {

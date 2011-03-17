@@ -1,17 +1,9 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static java.lang.Integer.*;
-import static java.lang.Long.*;
-
 import tasks.ITask;
+
+import static utils.MyMath.gcd;
+import static utils.MyMath.isPrime;
 
 //Answer : 149253
 public class Task_130 implements ITask {

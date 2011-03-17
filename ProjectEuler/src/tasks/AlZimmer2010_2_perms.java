@@ -1,9 +1,12 @@
 package tasks;
 
+import utils.log.Logger;
+
 import java.util.Arrays;
 import java.util.Random;
-import static utils.STLUtils.*;
-import utils.log.Logger;
+
+import static utils.STLUtils.next_permutation;
+import static utils.STLUtils.reverse;
 
 //Answer :
 public class AlZimmer2010_2_perms implements ITask {

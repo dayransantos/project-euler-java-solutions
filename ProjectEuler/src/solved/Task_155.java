@@ -1,16 +1,12 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
-import static utils.LongFraction.*;
+import tasks.ITask;
+import tasks.Tester;
+import utils.LongFraction;
+
+import java.util.TreeSet;
+
+import static utils.LongFraction.ONE;
 
 //Answer : 3857447
 //Time   : 6 min

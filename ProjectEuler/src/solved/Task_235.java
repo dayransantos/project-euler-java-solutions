@@ -1,14 +1,6 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
+import tasks.ITask;
 
 //Answer :
 public class Task_235 implements ITask {

@@ -1,14 +1,5 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static java.math.BigInteger.*;
-
 import tasks.ITask;
 
 //Answer : 51161058134250

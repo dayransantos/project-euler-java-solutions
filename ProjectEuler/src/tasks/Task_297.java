@@ -1,9 +1,10 @@
 package tasks;
 
+import utils.log.Logger;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import utils.log.Logger;
 
 //Answer : 2252639041804718029
 public class Task_297 implements ITask {

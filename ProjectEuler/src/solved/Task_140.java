@@ -1,16 +1,10 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import static java.math.BigInteger.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import java.util.Iterator;
+import java.util.TreeSet;
 
 //Answer : 5673835352990
 //@see for solving Diophantine equation: http://www.alpertron.com.ar/QUAD.HTM

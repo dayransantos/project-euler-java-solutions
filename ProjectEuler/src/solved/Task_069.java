@@ -1,13 +1,9 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import static utils.MyMath.getPrimeDivisors;
+import static utils.MyMath.phi;
 
 //Answer : 510510
 public class Task_069 implements ITask {

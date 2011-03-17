@@ -1,16 +1,10 @@
 package solved;
 
-import tasks.*;
+import tasks.ITask;
+import tasks.Tester;
 import utils.pairs.LongTriple;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+
+import java.util.TreeSet;
 
 //Answer : 2009
 public class Task_225 implements ITask {

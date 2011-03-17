@@ -1,13 +1,12 @@
 package solved;
 
-import utils.FractionPoint;
-import utils.Point;
-import utils.*;
-import tasks.*;
-import java.util.HashSet;
 import tasks.ITask;
 import tasks.Tester;
+import utils.FractionPoint;
 import utils.LongFraction;
+import utils.Point;
+
+import java.util.HashSet;
 
 //Answer : 2868868
 public class Task_165 implements ITask {

@@ -1,11 +1,11 @@
 package solved;
 
-import static utils.MyMath.*;
+import tasks.ITask;
 
 import java.util.ArrayList;
-import java.math.BigInteger;
 
-import tasks.ITask;
+import static utils.MyMath.getPrimeDivisors;
+import static utils.MyMath.phi;
 
 //Answer : 303963552391
 public class Task_072 implements ITask {

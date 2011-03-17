@@ -2,7 +2,6 @@ package solved;
 
 import tasks.ITask;
 
-import static java.lang.Math.*;
 import java.util.StringTokenizer;
 
 

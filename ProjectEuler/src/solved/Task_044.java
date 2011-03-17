@@ -1,7 +1,7 @@
 package solved;
 
-import utils.MyMath;
 import tasks.ITask;
+import utils.MyMath;
 
 //Answer : 5482660
 public class Task_044 implements ITask {

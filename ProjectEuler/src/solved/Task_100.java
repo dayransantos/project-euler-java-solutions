@@ -1,9 +1,10 @@
 package solved;
 
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-
 import tasks.ITask;
+
+import static java.lang.Math.max;
+import static java.lang.Math.sqrt;
+import static utils.MyMath.isExactSquare;
 
 //Answer : 756872327473
 public class Task_100 implements ITask {

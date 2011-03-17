@@ -1,13 +1,8 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import static java.lang.Math.abs;
 
 //Answer : 2772
 public class Task_085 implements ITask {

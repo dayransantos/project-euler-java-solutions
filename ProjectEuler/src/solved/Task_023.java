@@ -1,11 +1,8 @@
 package solved;
 
-import java.util.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import static utils.MyMath.getDivisors;
 
 //Answer : 4179871
 public class Task_023 implements ITask {

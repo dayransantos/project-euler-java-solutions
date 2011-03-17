@@ -1,19 +1,13 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import org.apfloat.Apcomplex;
-import org.apfloat.Apfloat;
-import org.apfloat.ApfloatMath;
 import org.apfloat.Apint;
 import org.apfloat.ApintMath;
-import static utils.OtherUtils.*;
 import tasks.ITask;
 import tasks.Tester;
+
+import java.math.BigInteger;
+
+import static utils.MyMath.isExactSquare;
 
 //Answer : 40886
 public class Task_080 implements ITask {

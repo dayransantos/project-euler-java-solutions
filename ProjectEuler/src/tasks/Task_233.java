@@ -1,13 +1,6 @@
 package tasks;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
+import static utils.MyMath.getCachedPrimes;
 
 //Answer :
 //@see: http://www.math.niu.edu/~rusin/known-math/93_back/2squares

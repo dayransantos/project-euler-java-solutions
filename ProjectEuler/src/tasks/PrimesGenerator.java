@@ -1,8 +1,9 @@
 package tasks;
 
 import java.io.File;
-import static utils.MyMath.*;
 import java.io.PrintStream;
+
+import static utils.MyMath.doEratosthen;
 
 
 public class PrimesGenerator {

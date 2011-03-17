@@ -1,11 +1,10 @@
 package solved;
 
-import java.util.*;
-import java.math.BigInteger;
-
-import static utils.MyMath.*;
-import utils.FileUtils;
 import tasks.ITask;
+
+import java.util.TreeSet;
+
+import static utils.MyMath.getPrimeDivisors;
 
 //Answer : 14125034
 public class Task_127 implements ITask {

@@ -1,6 +1,5 @@
 package utils.log;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 /**

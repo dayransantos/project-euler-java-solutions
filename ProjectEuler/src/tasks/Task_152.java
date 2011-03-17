@@ -1,11 +1,13 @@
 package tasks;
 
-import java.util.*;
-import java.math.BigInteger;
-import static utils.MyMath.*;
-
-import utils.LongFraction;
 import utils.Fraction;
+import utils.LongFraction;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+
+import static utils.MyMath.lcm;
 
 //Answer :
 public class Task_152 implements ITask {
