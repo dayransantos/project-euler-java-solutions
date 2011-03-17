@@ -448,4 +448,8 @@ public class MyMath {
     public static int numberOfDigits(long n) {
         return (int)floor( log10( abs( n != 0 ? n : 1 ) ) ) + 1;
     }
+
+    public static boolean isProbablePrime(long n, int certainty) {
+        return BigInteger.valueOf(n).isProbablePrime(certainty);
+    }
 }
