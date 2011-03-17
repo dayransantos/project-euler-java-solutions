@@ -1,6 +1,8 @@
 package solved;
 
-import tasks.*;
+import tasks.ITask;
+import tasks.Tester;
+
 import static utils.MyMath.*;
 
 //Answer : 96818198400000

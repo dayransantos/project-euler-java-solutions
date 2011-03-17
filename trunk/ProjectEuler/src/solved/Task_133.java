@@ -1,10 +1,11 @@
 package solved;
 
-import static utils.MyMath.*;
+import tasks.ITask;
 
 import java.util.ArrayList;
 
-import tasks.ITask;
+import static utils.MyMath.getPrimeDivisors;
+import static utils.MyMath.getPrimesBetween;
 
 //Answer : 453647705
 public class Task_133 implements ITask {

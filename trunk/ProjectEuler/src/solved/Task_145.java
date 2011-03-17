@@ -1,9 +1,5 @@
 package solved;
 
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
 
 public class Task_145 implements ITask {

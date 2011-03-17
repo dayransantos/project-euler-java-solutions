@@ -1,13 +1,13 @@
 package solved;
 
-import tasks.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Stack;
-import java.math.BigInteger;
-import java.util.HashMap;
+import tasks.ITask;
+import tasks.Tester;
 import utils.pairs.IntPair;
+
+import java.util.HashMap;
+
+import static java.lang.Math.sqrt;
+import static utils.MyMath.isExactSquare;
 
 //Answer : 1322
 public class Task_064 implements ITask {

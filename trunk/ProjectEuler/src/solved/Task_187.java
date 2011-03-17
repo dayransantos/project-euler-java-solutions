@@ -1,8 +1,5 @@
 package solved;
 
-import java.util.*;
-
-import static utils.MyMath.*;
 import tasks.ITask;
 
 //Answer : 17427258

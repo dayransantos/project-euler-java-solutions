@@ -1,12 +1,11 @@
 package solved;
 
-import java.util.*;
-
-import static utils.MyMath.*;
-
-import static java.lang.Math.*;
-
 import tasks.ITask;
+
+import java.util.TreeSet;
+
+import static java.lang.Math.sqrt;
+import static utils.MyMath.getPrimesBetween;
 
 //Answer : 34029210557338
 public class Task_203 implements ITask {

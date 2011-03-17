@@ -1,6 +1,5 @@
 package solved;
 
-import static utils.MyMath.*;
 import tasks.ITask;
 
 //Answer : 986262

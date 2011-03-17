@@ -1,14 +1,10 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import static utils.MyMath.getPrimesBetween;
+import static utils.MyMath.phi;
 
 //Answer : 892371480
 public class Task_243 implements ITask {

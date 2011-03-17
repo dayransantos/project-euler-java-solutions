@@ -1,10 +1,10 @@
 package utils;
 
-import static java.lang.Math.min;
-import static java.lang.Math.max;
-import static java.lang.Math.abs;
 import java.math.BigInteger;
-import static java.math.BigInteger.*;
+
+import static java.lang.Math.max;
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.ZERO;
 
 public class Combinatoric {
     private static BigInteger facts[] = null;

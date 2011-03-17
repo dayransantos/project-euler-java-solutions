@@ -1,11 +1,8 @@
 package solved;
 
-import static utils.MyMath.*;
-
-import java.util.ArrayList;
-import java.math.BigInteger;
-
 import tasks.ITask;
+
+import static utils.MyMath.gcd;
 
 //Answer : 5066251
 public class Task_073 implements ITask {

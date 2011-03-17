@@ -2,7 +2,7 @@ package solved;
 
 import tasks.ITask;
 
-import static java.lang.Math.*;
+import static java.lang.Math.log;
 
 //Answer : 709
 public class Task_099 implements ITask {

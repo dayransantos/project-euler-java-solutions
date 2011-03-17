@@ -1,14 +1,9 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
 import tasks.ITask;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 //Answer : 248155780267521
 public class Task_119 implements ITask {

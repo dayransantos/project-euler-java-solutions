@@ -1,8 +1,9 @@
 package solved;
 
-import static utils.MyMath.*;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import static utils.MyMath.getPrimesBetween;
+import static utils.OtherUtils.deepFillLong;
 
 //Answer : 71
 public class Task_077 implements ITask {

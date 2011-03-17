@@ -1,13 +1,11 @@
 package solved;
 
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import java.util.ArrayList;
-
-import static utils.OtherUtils.*;
-import utils.pairs.LongPair;
 import tasks.ITask;
+import utils.pairs.LongPair;
+
+import java.util.Arrays;
+
+import static utils.MyMath.getPrimeDivisors;
 
 //Answer : 21417
 public class Task_124 implements ITask {

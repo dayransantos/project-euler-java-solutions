@@ -1,13 +1,10 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import java.util.Arrays;
+
+import static utils.OtherUtils.arrayToString;
 
 //Answer : 73162890
 public class Task_079 implements ITask {

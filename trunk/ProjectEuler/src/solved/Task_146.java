@@ -1,13 +1,12 @@
 package solved;
 
-import static utils.MyMath.*;
+import tasks.ITask;
+import tasks.Tester;
 import utils.MyMath;
 
 import java.util.ArrayList;
-import java.io.*;
 
-import tasks.ITask;
-import tasks.Tester;
+import static utils.MyMath.hasCommonDivisors;
 
 //Answer : 676333270
 public class Task_146 implements ITask {

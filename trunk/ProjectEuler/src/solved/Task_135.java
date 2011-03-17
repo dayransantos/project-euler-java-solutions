@@ -1,16 +1,12 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
+import tasks.ITask;
+import tasks.Tester;
 import utils.pairs.LongPair;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+
+import java.util.TreeSet;
+
+import static utils.MyMath.getDivisors;
 
 //Answer : 4989
 public class Task_135 implements ITask {

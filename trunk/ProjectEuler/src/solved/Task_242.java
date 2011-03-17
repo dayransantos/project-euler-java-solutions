@@ -1,17 +1,11 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import java.math.BigInteger;
+
 import static java.math.BigInteger.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
-import static utils.Combinatoric.*;
 
 //Answer : 997104142249036713
 public class Task_242 implements ITask {

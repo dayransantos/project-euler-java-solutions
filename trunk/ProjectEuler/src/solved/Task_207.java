@@ -1,14 +1,9 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
+import tasks.ITask;
+
+import static utils.MyMath.gcd;
+import static utils.MyMath.isPowerOfTwo;
 
 //Answer : 44043947822
 public class Task_207 implements ITask {

@@ -1,9 +1,10 @@
 package tasks;
 
-import java.util.Arrays;
-import java.util.Random;
-import static utils.STLUtils.*;
 import utils.log.Logger;
+
+import java.util.Random;
+
+import static utils.STLUtils.reverse;
 
 //Answer :
 public class AlZimmer2010_3_smart implements ITask {

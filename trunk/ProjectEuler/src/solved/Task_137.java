@@ -1,13 +1,8 @@
 package solved;
 
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import java.math.BigInteger;
-import java.math.BigDecimal;
-
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import java.math.BigInteger;
 
 //Begin with  : http://en.wikipedia.org/wiki/Fibonacci_number#Power_series
 //Answer      : 1120149658760

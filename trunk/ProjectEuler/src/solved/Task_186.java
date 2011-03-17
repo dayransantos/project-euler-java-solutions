@@ -2,7 +2,9 @@ package solved;
 
 import tasks.ITask;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.TreeSet;
 
 //Answer : 2325629
 public class Task_186 implements ITask {

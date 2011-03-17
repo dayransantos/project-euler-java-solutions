@@ -1,10 +1,9 @@
 package solved;
 
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import static utils.MyMath.doEratosthen;
+import static utils.MyMath.isPrime;
 
 //Answer : -59231
 public class Task_027 implements ITask {

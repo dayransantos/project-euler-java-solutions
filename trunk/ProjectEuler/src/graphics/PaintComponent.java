@@ -1,9 +1,8 @@
 package graphics;
 
-import java.awt.Graphics;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.JComponent;
 
 /**
  *

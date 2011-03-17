@@ -1,14 +1,8 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import java.math.BigInteger;
 
 //Answer : 55374
 //Link   : http://home.att.net/~numericana/answer/numbers.htm#partitions

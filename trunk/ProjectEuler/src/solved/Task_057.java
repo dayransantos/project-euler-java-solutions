@@ -1,7 +1,7 @@
 package solved;
 
-import utils.Fraction;
 import tasks.ITask;
+import utils.Fraction;
 
 public class Task_057 implements ITask {
     int LIM = 1000;

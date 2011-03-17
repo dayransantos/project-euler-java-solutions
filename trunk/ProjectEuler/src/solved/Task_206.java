@@ -1,17 +1,8 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static java.lang.Integer.*;
-import static java.lang.Long.*;
-
 import tasks.ITask;
+
+import static java.lang.Math.sqrt;
 
 //Answer : 1389019170
 public class Task_206 implements ITask {

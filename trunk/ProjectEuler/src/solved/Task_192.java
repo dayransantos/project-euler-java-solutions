@@ -1,23 +1,16 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import static java.math.BigInteger.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.math.ConvergenceException;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import org.apache.commons.math.fraction.Fraction;
-import org.apfloat.Apcomplex;
 import org.apfloat.Apfloat;
 import org.apfloat.ApfloatMath;
-import org.jscience.mathematics.number.Rational;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import static java.math.BigInteger.*;
+import static utils.MyMath.gcd;
+import static utils.MyMath.isExactSquare;
 
 
 //Answer : 57060635927998347

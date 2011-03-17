@@ -1,13 +1,9 @@
 package solved;
 
-import org.jscience.mathematics.number.Float64;
-import tasks.*;
 import org.apache.commons.math.linear.MatrixUtils;
 import org.apache.commons.math.linear.RealMatrix;
-import org.jscience.mathematics.vector.DenseVector;
-import org.jscience.mathematics.vector.Float64Matrix;
-import org.jscience.mathematics.vector.Float64Vector;
-import org.jscience.mathematics.vector.Vector;
+import tasks.ITask;
+import tasks.Tester;
 
 //Answer : 37076114526
 public class Task_101 implements ITask {

@@ -1,16 +1,10 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import static java.math.BigInteger.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import static java.lang.Math.max;
+import static utils.OtherUtils.deepFillDouble;
 
 //Answer : 0.83648556
 public class Task_232 implements ITask {

@@ -1,15 +1,10 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import static java.lang.Math.max;
+import static utils.OtherUtils.deepFillLong;
 
 //Answer : 409511334375
 public class Task_158 implements ITask {

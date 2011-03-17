@@ -1,11 +1,8 @@
 package solved;
 
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import java.math.BigInteger;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import static utils.OtherUtils.isPandigital;
 
 //Answer : 329468
 public class Task_104 implements ITask {

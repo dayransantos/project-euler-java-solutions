@@ -1,7 +1,10 @@
 package solved;
 
-import tasks.*;
-import static java.lang.Math.*;
+import tasks.ITask;
+import tasks.Tester;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 //Answer : 354
 public class Task_144 implements ITask {

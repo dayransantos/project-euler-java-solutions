@@ -1,14 +1,12 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
+import tasks.ITask;
+import tasks.Tester;
+
 import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
+
+import static utils.MyMath.getPrimesBetween;
+import static utils.MyMath.isPrime;
 
 //Answer : 26033
 public class Task_060 implements ITask {

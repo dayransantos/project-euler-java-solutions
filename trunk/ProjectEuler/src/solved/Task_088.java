@@ -1,12 +1,9 @@
 package solved;
 
-import tasks.*;
-import java.lang.Integer;
+import tasks.ITask;
+import tasks.Tester;
+
 import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import static java.lang.Math.*;
-import utils.*;
 
 //Answer : 7587457
 public class Task_088 implements ITask {

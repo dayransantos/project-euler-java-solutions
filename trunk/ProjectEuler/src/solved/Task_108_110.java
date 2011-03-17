@@ -1,11 +1,9 @@
 package solved;
 
-import tasks.*;
-import java.util.ArrayList;
-import static utils.MyMath.*;
+import tasks.ITask;
+import tasks.Tester;
 
-import java.util.TreeSet;
-import utils.pairs.LongPair;
+import static utils.MyMath.getCachedPrimesInternal;
 
 //Answer 108: 180180
 //Answer 110: 9350130049860600

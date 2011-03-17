@@ -1,10 +1,8 @@
 package solved;
 
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import static utils.MyMath.isPrime;
 
 //Answer : 26241
 public class Task_058 implements ITask {

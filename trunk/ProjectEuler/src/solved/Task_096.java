@@ -1,10 +1,11 @@
 package solved;
 
-import java.io.*;
-import java.util.Arrays;
-
-import static utils.OtherUtils.*;
 import tasks.ITask;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Arrays;
 
 //Answer : 24702
 public class Task_096 implements ITask {

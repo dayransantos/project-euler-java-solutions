@@ -1,13 +1,13 @@
 package solved;
 
-import java.util.*;
-
-import utils.*;
-
-import static java.lang.Math.*;
-import static java.lang.Long.*;
-
 import tasks.ITask;
+import utils.FileUtils;
+import utils.STLUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static java.lang.Long.parseLong;
 
 //Answer : 73702
 

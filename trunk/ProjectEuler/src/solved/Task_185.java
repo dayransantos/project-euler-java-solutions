@@ -1,16 +1,12 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import static java.math.BigInteger.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
+import tasks.ITask;
+import tasks.Tester;
+
 import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+
+import static utils.MyMath.isBitSet;
+import static utils.MyMath.setBit;
 
 //Answer : 4640261571849533
 public class Task_185 implements ITask {

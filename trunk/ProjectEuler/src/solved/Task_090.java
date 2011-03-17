@@ -1,15 +1,11 @@
 package solved;
 
-import tasks.*;
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
+import tasks.ITask;
+import tasks.Tester;
+
 import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 //Answer : 1217
 public class Task_090 implements ITask {

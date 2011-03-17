@@ -1,12 +1,11 @@
 package solved;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import tasks.ITask;
 import tasks.Tester;
 import utils.log.Logger;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 //Answer : 0.999992836187
 public class Task_267 implements ITask {

@@ -1,15 +1,11 @@
 package tasks;
 
-import java.util.*;
-import java.math.*;
-import static java.math.BigInteger.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
-import static utils.FileUtils.*;
+import java.math.BigInteger;
+
+import static java.lang.Math.sqrt;
+import static java.math.BigInteger.ZERO;
+import static java.math.BigInteger.valueOf;
+import static utils.MyMath.gcd;
 
 //Answer :
 public class Task_218 implements ITask {

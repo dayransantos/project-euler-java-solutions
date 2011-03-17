@@ -1,14 +1,11 @@
 package solved;
 
-import java.util.*;
-import java.math.*;
-import utils.*;
-import static utils.MyMath.*;
-import static java.lang.Math.*;
-import java.util.Arrays;
-import static utils.OtherUtils.*;
-import static utils.STLUtils.*;
 import tasks.ITask;
+
+import java.util.Arrays;
+import java.util.HashMap;
+
+import static utils.STLUtils.reverse;
 
 //Answer : 127035954683
 public class Task_062 implements ITask {
