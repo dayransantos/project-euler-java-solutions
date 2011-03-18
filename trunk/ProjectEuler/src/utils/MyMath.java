@@ -404,6 +404,10 @@ public class MyMath {
     }
 
     public static long pow(long n, int p) {
+        if (p==1) return n;
+        if (p==2) return n*n;
+        if (p==3) return n*n*n;
+
         long r = 1;
         for (int i = 0; i < p; ++i) {
             r *= n;
