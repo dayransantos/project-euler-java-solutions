@@ -23,16 +23,15 @@ public class Task_329 implements ITask {
                     173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359,
                     367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499));
 
-    //PPPPNNPPPNPPNPN
     private double prob[] = new double[1 << 15];
 
     public void solving() {
         for (int i = 1; i <= 500; ++i) {
             System.out.println(i);
-            find(i, 1, 0, 0);
+            find(i, 1.0/500.0, 0, 0);
         }
 
-        System.out.println(prob[parseInt("PPPPNNPPPNPPNPN".replace('P', '1').replace('N', '0'), 2)] / 500);
+        System.out.println(prob[parseInt("PPPPNNPPPNPPNPN".replace('P', '1').replace('N', '0'), 2)]);
     }
 
     private void find(int n, double currp, int curr, int cnt) {
