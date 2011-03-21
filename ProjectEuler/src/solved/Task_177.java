@@ -92,10 +92,10 @@ public class Task_177 implements ITask {
                         key2,
                         key3,
                         key4,
-                        reverse(new ArrayList<Integer>(key1)),
-                        reverse(new ArrayList<Integer>(key2)),
-                        reverse(new ArrayList<Integer>(key3)),
-                        reverse(new ArrayList<Integer>(key4))),
+                        reverse(key1),
+                        reverse(key2),
+                        reverse(key3),
+                        reverse(key4)),
                 new Comparator<List<Integer>>() {
                     public int compare(List<Integer> k1, List<Integer> k2) {
                         for (int i = 0; i < k1.size(); ++i) {

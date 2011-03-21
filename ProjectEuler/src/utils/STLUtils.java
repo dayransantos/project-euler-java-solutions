@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -168,7 +169,8 @@ public class STLUtils {
     }
 
     public static <T> List<T> reverse(List<T> list) {
-        Collections.reverse(list);
-        return list;
+        List<T> nlist = new ArrayList<T>(list);
+        Collections.reverse(nlist);
+        return nlist;
     }
 }
