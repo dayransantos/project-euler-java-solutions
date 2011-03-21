@@ -1,5 +1,8 @@
 package utils;
 
+import java.util.Collections;
+import java.util.List;
+
 public class STLUtils {
 //    template<class _BidIt> inline
 //        bool _Next_permutation(_BidIt _First, _BidIt _Last)
@@ -162,5 +165,10 @@ public class STLUtils {
             res += n;
         }
         return res;
+    }
+
+    public static <T> List<T> reverse(List<T> list) {
+        Collections.reverse(list);
+        return list;
     }
 }
