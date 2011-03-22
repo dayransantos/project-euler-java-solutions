@@ -174,6 +174,6 @@ public class OtherUtils {
     }
 
     public static String formatDouble(double v, int precision) {
-        return String.format("%." + precision + "f", v);
+        return String.format("%." + precision + "f", v).replace(',', '.');
     }
 }
