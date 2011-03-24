@@ -11,7 +11,7 @@ import static java.lang.Math.sqrt;
 import static utils.MyMath.isExactSquare;
 
 //Answer : 285196020571078987
-public class Task_181 implements ITask {
+public class Task_180 implements ITask {
 
     private static final int n = 35;
     private HashSet<LongFraction> all = new HashSet<LongFraction>();
@@ -94,6 +94,6 @@ public class Task_181 implements ITask {
     }
 
     public static void main(String[] args) {
-        Tester.test(new Task_181());
+        Tester.test(new Task_180());
     }
 }
