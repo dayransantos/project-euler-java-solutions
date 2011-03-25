@@ -6,11 +6,14 @@ import static java.lang.Math.sqrt;
 public class Task_195 implements ITask {
 //       T(100) = 1234, T(1000) = 22767, and T(10000) = 359912.
 //       Find T(1053779).
-    private static final long LIM = 75085391;
-    private static final long n = 1053779;
+//    private static final long LIM = 75085391;
+//    private static final long n = 1053779;
 
-//    private static final int LIM = 1234;
-//    private static final int n = 100;
+//    private static final long LIM = 359912;
+//    private static final long n = 10000;
+//
+    private static final int LIM = 1234;
+    private static final int n = 100;
 
 //    private static final int LIM = 22767;
 //    private static final int n = 1000;
@@ -20,8 +23,6 @@ public class Task_195 implements ITask {
     double sq3 = sqrt(3);
 
     public void solving() {
-        System.out.println("");
-
         long res = 0;
         for (long a = 2; ; ++a) {
             long a2 = a * a;
@@ -50,8 +51,8 @@ public class Task_195 implements ITask {
 
                 ++res;
                 System.out.println(res + ": " + a + " " + b + " " + c);
-                if (res % 1000 == 0) {
-                    System.out.println(res + ": " + a + " " + b + " " + c);
+                if (res % 1000 == 0 || res>=LIM-10 || res < 11) {
+//                    System.out.println(res + ": " + a + " " + b + " " + c);
                 }
             }
         }
