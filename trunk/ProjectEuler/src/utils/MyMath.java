@@ -138,10 +138,9 @@ public class MyMath {
         long[] ps = getPrimesBetween(0, (long)(Math.sqrt(n) + 2));
         long sum = 1;
         long m = n;
-        for (int i = 0; i < ps.length;++i) {
-            long p = ps[i];
+        for (long p : ps) {
             long dp = 1;
-            while (m%p == 0) {
+            while (m % p == 0) {
                 m /= p;
                 dp = dp * p + 1;
             }
