@@ -1,7 +1,9 @@
 package tasks;
 
 import static java.lang.Math.sqrt;
+import static utils.MyMath.gcd;
 import static utils.MyMath.getCachedPrimes;
+import static utils.MyMath.pow;
 
 //Answer :
 public class Task_195_2 implements ITask {
@@ -49,18 +51,12 @@ public class Task_195_2 implements ITask {
         System.out.println("");
 
         for (a = 2; ; ++a) {
-            long ores = res;
             long a2 = a * a;
             maxb = (a2<=12*n2) ? (a-1) : (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
 
             factorize3a2(a);
 
             find(0, 1, 3 * a2);
-
-            long dr = res - ores;
-            if (dr > 7) {
-                System.out.println(a);
-            }
         }
 //        System.out.println(res);
     }
@@ -80,29 +76,51 @@ public class Task_195_2 implements ITask {
             long b1 = a + B;
             long b2 = a - B;
 
-            check(b1);
-            check(b2);
+            if (gcd(a, c) != 1) {
+                return;
+            }
 
-//        System.out.println(res + ": " + a + " " + b + " " + c);
+            if(check(a, b1, c)) {
+                System.out.println(res + ": " + a + " " + b1/2 + " " + c);
+            }
+            if(check(a, b2, c)) {
+                System.out.println(res + ": " + a + " " + b2/2 + " " + c);
+            }
 
             return;
         }
 
         long factor = factors[ind];
-        long maxcnt = factPow[ind];
+        int maxcnt = factPow[ind];
+        int mincnt = 0;
         if (factor == 2) {
+            mincnt++;
             maxcnt--;
+            f1 *= 2;
+            f2 /= 2;
         }
-        for (int cnt = factor==2?1:0; cnt <= maxcnt; cnt++, f1 *= factor, f2 /= factor) {
+        if (factor > 3) {
+            long fp = pow(factor, maxcnt);
+            //give all to the only factor, otherwise a, b and c will not be co-prime
+            find(ind + 1, f1 * fp, f2 / fp);
             find(ind + 1, f1, f2);
+        } else {
+            for (int cnt = mincnt; cnt <= maxcnt; cnt++, f1 *= factor, f2 /= factor) {
+                find(ind + 1, f1, f2);
+            }
         }
     }
 
-    private boolean check(long b2) {
-        if (b2%2!=0 || b2/2 > maxb || b2 < 1) {
+    private boolean check(long a, long b2, long c) {
+        if (b2%2!=0) {
             return false;
         }
-        ++res;
+        long b = b2/2;
+        if (b > maxb || b < 1 || gcd(a, b) != 1 || gcd(c, b) != 1) {
+            return false;
+        }
+
+        res += maxb / b;
 
         return true;
     }
