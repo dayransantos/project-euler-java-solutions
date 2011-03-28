@@ -1,10 +1,10 @@
 package tasks;
 
 import static java.lang.Math.sqrt;
-import static utils.MyMath.getCachedPrimes;
+import static utils.MyMath.*;
 
 //Answer :
-public class Task_195_2 implements ITask {
+public class Task_195_3 implements ITask {
 //       T(100) = 1234, T(1000) = 22767, and T(10000) = 359912.
 //       Find T(1053779).
 //    private static final long LIM = 75085391;
@@ -50,8 +50,8 @@ public class Task_195_2 implements ITask {
 
         for (a = 2; ; ++a) {
             long a2 = a * a;
-//            maxb = (a2<=12*n2) ? (a-1) : (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
             maxb = (a2<=12*n2) ? (a-1) : (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
+//            maxb = (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
 
             factorize3a2(a);
 
@@ -75,6 +75,10 @@ public class Task_195_2 implements ITask {
             long b1 = a + B;
             long b2 = a - B;
 
+            if (gcd(a, c) != 1) {
+                return;
+            }
+
             if(check(a, b1, c)) {
                 System.out.println(res + ": " + a + " " + b1/2 + " " + c);
             }
@@ -94,9 +98,15 @@ public class Task_195_2 implements ITask {
             f1 *= 2;
             f2 /= 2;
         }
-
-        for (int cnt = mincnt; cnt <= maxcnt; cnt++, f1 *= factor, f2 /= factor) {
+        if (factor > 3) {
+            long fp = pow(factor, maxcnt);
+            //give all to the only factor, otherwise a, b and c will not be co-prime
+            find(ind + 1, f1 * fp, f2 / fp);
             find(ind + 1, f1, f2);
+        } else {
+            for (int cnt = mincnt; cnt <= maxcnt; cnt++, f1 *= factor, f2 /= factor) {
+                find(ind + 1, f1, f2);
+            }
         }
     }
 
@@ -105,11 +115,11 @@ public class Task_195_2 implements ITask {
             return false;
         }
         long b = b2/2;
-        if (b > maxb || b < 1) {
+        if (b > maxb || b < 1 || gcd(a, b) != 1 || gcd(c, b) != 1) {
             return false;
         }
 
-        res ++;
+        res += maxb / b;
 
         return true;
     }
@@ -144,6 +154,6 @@ public class Task_195_2 implements ITask {
     }
 
     public static void main(String[] args) {
-        Tester.test(new Task_195_2());
+        Tester.test(new Task_195_3());
     }
 }
