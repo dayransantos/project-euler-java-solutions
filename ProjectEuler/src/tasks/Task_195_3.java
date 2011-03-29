@@ -10,7 +10,7 @@ public class Task_195_3 implements ITask {
 //    private static final long LIM = 75085391;
 //    private static final long n = 1053779;
 
-//    private static final long LIM = 359912;
+    //    private static final long LIM = 359912;
 //    private static final long n = 10000;
 //
     private static final int LIM = 1234;
@@ -50,7 +50,7 @@ public class Task_195_3 implements ITask {
 
         for (a = 2; ; ++a) {
             long a2 = a * a;
-            maxb = (a2<=12*n2) ? (a-1) : (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
+            maxb = (a2 <= 12 * n2) ? (a - 1) : (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
 //            maxb = (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
 
             factorize3a2(a);
@@ -68,7 +68,9 @@ public class Task_195_3 implements ITask {
         if (ind == fcnt) {
             long fs = f1 + f2;
             long fd = f2 - f1;
-            if (fs % 4 != 0 && fd%2!=0) return;
+            if (fs % 4 != 0 && fd % 2 != 0) {
+                return;
+            }
 
             long c = fs / 4;
             long B = fd / 2;
@@ -79,11 +81,11 @@ public class Task_195_3 implements ITask {
                 return;
             }
 
-            if(check(a, b1, c)) {
-                System.out.println(res + ": " + a + " " + b1/2 + " " + c);
+            if (check(a, b1, c)) {
+                System.out.println(res + ": " + a + " " + b1 / 2 + " " + c);
             }
-            if(check(a, b2, c)) {
-                System.out.println(res + ": " + a + " " + b2/2 + " " + c);
+            if (check(a, b2, c)) {
+                System.out.println(res + ": " + a + " " + b2 / 2 + " " + c);
             }
 
             return;
@@ -111,13 +113,16 @@ public class Task_195_3 implements ITask {
     }
 
     private boolean check(long a, long b2, long c) {
-        if (b2%2!=0) {
+        if (b2 % 2 != 0) {
             return false;
         }
-        long b = b2/2;
+        long b = b2 / 2;
         if (b > maxb || b < 1 || gcd(a, b) != 1 || gcd(c, b) != 1) {
             return false;
         }
+
+//        long maxa = 12 * n2;
+//        res += maxa / a;
 
         res += maxb / b;
 
@@ -149,7 +154,7 @@ public class Task_195_3 implements ITask {
 
         if (a != 1) {
             factors[fcnt] = a;
-            factPow[fcnt++] = a==3 ? 3 : 2;
+            factPow[fcnt++] = a == 3 ? 3 : 2;
         }
     }
 
