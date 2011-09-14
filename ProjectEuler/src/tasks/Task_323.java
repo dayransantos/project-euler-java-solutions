@@ -24,18 +24,21 @@ public class Task_323 implements ITask {
 
     public void solving() {
         double res = 0;
+        double prevf = 0;
         for (int k = 1; ;++k) {
             BigDecimal p2k = p2(k);
             BigDecimal pone = p2k.subtract(ONE).divide(p2k);
             BigDecimal p = pone.pow(n);
 
-            double f = ONE.subtract(p).doubleValue();
+            double f = p.doubleValue() - prevf;
             f *= pz(k-1);
 
             res += f * k;
             System.out.println(res + ": " + f);
 
             if (f < eps) break;
+
+            prevf = f;
         }
         System.out.println(OtherUtils.formatDouble(res, 10));
     }
