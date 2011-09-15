@@ -13,38 +13,49 @@ public class Task_339 implements ITask {
         Logger.close();
     }
 
-    public int n = 5;
     public void solving() {
         OtherUtils.deepFillDouble(p, -1);
-        System.out.println(find(n, n, 1));
+        System.out.println(find(n, n, 0));
     }
 
-    double p[][] = new double[2*n+1][2*n+1];
-    private double find(int w, int b, double k) {
-        if (k < 1e-5) {
-            return 0;
-        }
-        if (b == 0) {
-            return 0;
-        }
-        if (w == 0) {
+    int maxdeep = 5;
+    public int n = 10000;
+    double p[][][] = new double[2*n+1][2*n+1][maxdeep + 1];
+    private double find(int w, int b, int deep) {
+        if (deep > maxdeep) {
             return b;
         }
 
-        if (p[w][b] != -1) {
-            return p[w][b];
+        if (b == 0) {
+            return 0;
+        }
+
+        if (w <= 0) {
+            return b;
+        }
+
+        if (p[w][b][deep] != -1) {
+            return p[w][b][deep];
         }
 
         double all = w + b;
         double wb = 0;
         double bb = 0;
-        for (int i = 0; i <= w; ++i) {
-            if (i != w) {
-                wb = max(wb, find(w - 1 - i, b + 1, k*w/all));
-            }
-            bb = max(bb, find(w + 1 - i, b - 1, k*b/all));
+        for (int i = 0; i <= w+1; ++i) {
+            wb = max(wb, find(w + 1 - i, b - 1, deep+1));
+            bb = max(bb, find(w - 1 - i, b + 1, deep+1));
         }
 
-        return p[w][b] = w/all * wb + b/all * bb;
+        newentry();
+
+        return p[w][b][deep] = w/all * wb + b/all * bb;
+    }
+
+    int cnt = 0;
+    private void newentry() {
+        ++cnt;
+        if (cnt % 100 == 0) {
+            System.out.println(cnt);
+        }
     }
 }
