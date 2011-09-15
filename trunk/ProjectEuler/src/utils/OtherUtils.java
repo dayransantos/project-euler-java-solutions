@@ -1,5 +1,6 @@
 package utils;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class OtherUtils {
@@ -159,6 +160,30 @@ public class OtherUtils {
                 deepFillDouble(subArr, val);
             }
         }
+    }
+
+    @SuppressWarnings({"SuspiciousSystemArraycopy"})
+    public static void deepCopy(Object src, Object dest) {
+        if (!src.getClass().isArray()) {
+            throw new IllegalStateException("not array!");
+        }
+
+        if (src instanceof Object[]) {
+            Object a1[] = (Object[]) src;
+            Object a2[] = (Object[]) dest;
+            if (a1.length == 0) {
+                return;
+            }
+
+            if (a1[0].getClass().isArray()) {
+                for (int i = 0; i < a1.length; i++) {
+                    deepCopy(a1[i], a2[i]);
+                }
+                return;
+            }
+        }
+
+        System.arraycopy(src, 0, dest, 0, Array.getLength(src));
     }
 
     public static String toIndentedString(int n) {
