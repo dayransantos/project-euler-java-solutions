@@ -15,11 +15,11 @@ public class Task_339 implements ITask {
 
     public void solving() {
         OtherUtils.deepFillDouble(p, -1);
-        System.out.println(find(n, n, 0));
+        System.out.println(OtherUtils.formatDouble(find(n, n, 0), 6));
     }
 
-    int maxdeep = 5;
-    public int n = 10000;
+    int maxdeep = 100;
+    public int n = 5;
     double p[][][] = new double[2*n+1][2*n+1][maxdeep + 1];
     private double find(int w, int b, int deep) {
         if (deep > maxdeep) {

@@ -1,5 +1,7 @@
-package tasks;
+package solved;
 
+import tasks.ITask;
+import tasks.Tester;
 import utils.log.Logger;
 
 import java.util.Arrays;
