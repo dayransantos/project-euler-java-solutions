@@ -5,7 +5,7 @@ import java.io.PrintStream;
 
 public class PrimesGenerator2 {
 
-    static long maxN = 1000000000L;
+    static long maxN = 20000000L;
     static long primes[] = new long[50000000];
     static int primesCount = 0;
 
