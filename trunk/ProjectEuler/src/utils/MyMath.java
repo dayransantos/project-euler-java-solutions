@@ -245,7 +245,7 @@ public class MyMath {
 
         return all;
     }
-    private final static int MAX_PRIMES_TO_CACHE = 400000;
+    private final static int MAX_PRIMES_TO_CACHE = 2000000;
 
     private static void initPrimesList() {
         if (cachedPrimes != null) {
@@ -319,7 +319,7 @@ public class MyMath {
             b++;
         }
         int e = b;
-        while (cachedPrimes.get(e) < end) {
+        while (e < cachedPrimes.size() && cachedPrimes.get(e) < end) {
             e++;
         }
         --e;
