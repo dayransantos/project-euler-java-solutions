@@ -201,4 +201,8 @@ public class OtherUtils {
     public static String formatDouble(double v, int precision) {
         return String.format("%." + precision + "f", v).replace(',', '.');
     }
+
+    public static int intCmp(int i1, int i2) {
+        return new Integer(i1).compareTo(i2);
+    }
 }

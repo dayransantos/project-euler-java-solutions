@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static java.lang.Math.*;
+import static java.math.BigInteger.valueOf;
 
 public class MyMath {
     public static long pow10[] = {
@@ -453,6 +454,10 @@ public class MyMath {
     }
 
     public static boolean isProbablePrime(long n, int certainty) {
-        return BigInteger.valueOf(n).isProbablePrime(certainty);
+        return valueOf(n).isProbablePrime(certainty);
+    }
+
+    public static BigInteger bi(long n) {
+        return valueOf(n);
     }
 }
