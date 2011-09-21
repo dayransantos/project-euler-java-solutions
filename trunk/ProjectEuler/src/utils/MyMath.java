@@ -319,7 +319,7 @@ public class MyMath {
             b++;
         }
         int e = b;
-        while (e < cachedPrimes.size() && cachedPrimes.get(e) < end) {
+        while (e < cachedPrimes.size() && cachedPrimes.get(e) <= end) {
             e++;
         }
         --e;

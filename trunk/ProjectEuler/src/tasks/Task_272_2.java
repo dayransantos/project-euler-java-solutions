@@ -3,20 +3,23 @@ package tasks;
 import utils.MyMath;
 import utils.log.Logger;
 
-import java.util.Arrays;
+import java.math.BigInteger;
+
+import static java.math.BigInteger.ZERO;
+import static utils.MyMath.bi;
 
 //Answer :
 //see: http://oeis.org/A060839 for some thoughts
-public class Task_272 implements ITask {
+public class Task_272_2 implements ITask {
 
     public static void main(String[] args) {
         Logger.init("default.log");
-        Tester.test(new Task_272());
+        Tester.test(new Task_272_2());
         Logger.close();
     }
 
 //    long LIM = 100000000000L;
-    long LIM = 20000000;
+    long LIM = 30000000;
 
     long[] needprimes;
     int np;
@@ -29,8 +32,6 @@ public class Task_272 implements ITask {
         long hiprime = LIM / (7 * 13 * 19 * 31);
         needprimes = MyMath.getPrimesBetween(0, hiprime);
         otherprimes = new long[needprimes.length];
-
-        Arrays.fill(fr, -1);
 
         fr[0] = fr[1] = 1;
         for (int i = 2; i < fr.length; ++i) {
@@ -54,23 +55,25 @@ public class Task_272 implements ITask {
             }
         }
 
-        long res = 0;
+        System.out.println(np);
+
+        BigInteger res = ZERO;
         for (int i = 0; i < needprimes.length; ++i) {
             System.out.println(i);
-            res += find(i, 0, 1);
+            res = res.add(find(i, 0, needprimes[i]));
         }
         System.out.println(res);
     }
 
-    private long find(int ind, int cnt, long n) {
+    private BigInteger find(int ind, int cnt, long n) {
         long p = needprimes[ind];
-        long res = 0;
-        for (long nn = n*p; nn <= LIM; nn*=p) {
+        BigInteger res = BigInteger.ZERO;
+        for (long nn = n; nn <= LIM; nn*=p) {
             if (cnt == 4) {
-                res += nn * fr[((int) (LIM / nn))];
+                res = res.add(bi(nn).multiply(bi(fr[((int) (LIM / nn))])));
             } else {
-                for (int nind = ind+1; np-nind+cnt+1 >= 5; ++nind) {
-                    res += find(nind, cnt + 1, nn);
+                for (int nind = ind+1; np-nind+cnt+1 >= 5 && nn*needprimes[nind] <= LIM; ++nind) {
+                    res = res.add(find(nind, cnt + 1, nn*needprimes[nind]));
                 }
             }
         }
