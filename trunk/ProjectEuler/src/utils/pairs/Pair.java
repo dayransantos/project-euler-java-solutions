@@ -10,7 +10,7 @@ public class Pair<T1, T2> {
     }
 
     public boolean equals(Object obj) {
-        if (super.equals(obj)) return true;
+        if (this == obj) return true;
 
         if ( !(obj instanceof Pair) ) return false;
         Pair<T1, T2> p = (Pair)obj;
