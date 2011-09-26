@@ -31,10 +31,14 @@ public class Task_351 implements ITask {
                 if (g == 1) {
                     continue;
                 }
-                xn = x/g;
-                rn = r/g;
+                g /= 2;
+                xn = x/2;
+                rn = r/2;
 
-                if (xn%2 - rn%2 == 0 || (g>2 && g%2==0)) {
+//                xn = x/g;
+//                rn = r/g;
+
+                if (xn%2 - rn%2 == 0 || g != 1) {// || (g/2!=1)) {
                     ++rr;
                 }
             }
