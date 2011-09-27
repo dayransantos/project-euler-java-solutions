@@ -1,6 +1,7 @@
 package utils;
 
 import org.apfloat.ApintMath;
+import org.apfloat.Apint;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -200,9 +201,7 @@ public class MyMath {
         initPrimesList();
         ArrayList<Long> all = new ArrayList<Long>();
 
-        for (int i = 0; i < cachedPrimes.size(); ++i) {
-            long p = cachedPrimes.get(i);
-
+        for (long p : cachedPrimes) {
             if (n % p == 0) {
                 all.add(p);
                 while (n % p == 0) {
@@ -264,7 +263,7 @@ public class MyMath {
         } catch (FileNotFoundException e) {
             cachedPrimes.add(2L);
             cachedPrimes.add(3L);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -360,7 +359,7 @@ public class MyMath {
      * @deprecated use ApintMath.sqrt instead
      * @param n
      * @return
-     * @see ApintMath#sqrt(org.apfloat.Apint) 
+     * @see ApintMath#sqrt(org.apfloat.Apint)
      */
     public static BigInteger sqrt(final BigInteger n) {
         if (n.equals(BigInteger.ZERO)) {
@@ -381,15 +380,18 @@ public class MyMath {
     }
 
     public static boolean isExactSquare(BigInteger n) {
-
-        BigInteger sqrt = sqrt(n);
-        return (sqrt.multiply(sqrt).equals(n));
+        return ApintMath.sqrt(new Apint(n))[0].equals(Apint.ZERO);
+//        BigInteger sqrt = sqrt(n);
+//        return (sqrt.multiply(sqrt).equals(n));
     }
 
     /**
      * Euler's totient function
      */
     public static long phi(long n) {
+        if (n == 1) {
+            return 0;
+        }
         long res = n;
         ArrayList<Long> divs = getPrimeDivisors(n);
         for (long div : divs) {
