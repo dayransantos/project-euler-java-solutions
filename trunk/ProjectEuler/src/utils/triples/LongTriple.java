@@ -1,4 +1,4 @@
-package utils.pairs;
+package utils.triples;
 
 public class LongTriple implements Comparable<LongTriple> {
     public long a;
