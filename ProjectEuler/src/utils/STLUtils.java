@@ -168,6 +168,14 @@ public class STLUtils {
         return res;
     }
 
+    public static int accumulate(int[] arr) {
+        int res = 0;
+        for (int n : arr) {
+            res += n;
+        }
+        return res;
+    }
+
     public static <T> List<T> reverse(List<T> list) {
         List<T> nlist = new ArrayList<T>(list);
         Collections.reverse(nlist);

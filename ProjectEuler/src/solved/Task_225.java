@@ -2,7 +2,7 @@ package solved;
 
 import tasks.ITask;
 import tasks.Tester;
-import utils.pairs.LongTriple;
+import utils.triples.LongTriple;
 
 import java.util.TreeSet;
 
