@@ -1,9 +1,6 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +22,17 @@ public class FileUtils {
         return res;
     }
 
-    public static void writeFileLines(String fileName, List<String> lines) throws IOException {
-        PrintWriter outFile = new PrintWriter(fileName);
-//        PrintWriter outFile = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName), "UTF-8"));
-
-        for (String line : lines) {
-            outFile.println(line);
+    public static void writeFileLines(String fileName, List<String> lines) {
+//        PrintWriter outFile = new PrintWriter(fileName);
+        PrintWriter outFile = null;
+        try {
+            outFile = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileName), "UTF-8"));
+            for (String line : lines) {
+                outFile.println(line);
+            }
+            outFile.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        outFile.close();
     }
 }
