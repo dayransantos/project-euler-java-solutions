@@ -245,6 +245,7 @@ public class MyMath {
         return all;
     }
     private final static int MAX_PRIMES_TO_CACHE = 2000000;
+//    private final static int MAX_PRIMES_TO_CACHE = 5800000;
 
     private static void initPrimesList() {
         if (cachedPrimes != null) {
