@@ -4,6 +4,9 @@ import static utils.MyMath.getCachedPrimes;
 
 //Answer :
 //@see: http://www.math.niu.edu/~rusin/known-math/93_back/2squares
+///
+/// !!!!  There are no N = 2k such, that f(N) = 420
+///
 public class Task_233 implements ITask {
 
     final long LIM = 100000000000L;
