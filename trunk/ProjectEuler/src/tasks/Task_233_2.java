@@ -1,33 +1,22 @@
 package tasks;
 
-import static utils.MyMath.getCachedPrimes;
 import static utils.MyMath.getPrimesBetween;
 
-//Answer :
+//Answer : 271176528227932684
 //@see: http://www.math.niu.edu/~rusin/known-math/93_back/2squares
 public class Task_233_2 implements ITask {
 
     final long LIM = 100000000000L;
 
-    long prs[];
+    int cnt1 = 0;
+    int cnt3 = 0;
+    long pt1[] = new long[170000];
+    long pt3[] = new long[170000];
 
-    int factCnt;
-    long factors[] = new long[200];
-    int factPow[] = new int[200];
+    boolean onlyp3mults[] = new boolean[300000];
+    long p3multSums[] = new long[300000];
 
     public void solving() {
-        prs = getCachedPrimes();
-        System.out.println(f(1));
-        System.out.println(f(2));
-        System.out.println(f(3));
-        System.out.println(f(4));
-        System.out.println(f(5));
-        System.out.println(f(10000));
-
-        int cnt1 = 0;
-        int cnt3 = 0;
-        long pt1[] = new long[170000];
-        long pt3[] = new long[170000];
         for (long p : getPrimesBetween(0, 4733728)) {
             if (p%4==1) {
                 pt1[cnt1++] = p;
@@ -37,6 +26,12 @@ public class Task_233_2 implements ITask {
         }
         System.out.println("4k+1 primes count: " + cnt1);
         System.out.println("4k+3 primes count: " + cnt3);
+
+        fillP3Numbers(1, 0);
+        for (int i = 1; i < p3multSums.length; ++i) {
+            p3multSums[i] = p3multSums[i-1] + (onlyp3mults[i] ? i : 0);
+        }
+
 
         long res = 0;
         for (int i = 0; i < cnt1; ++i) {
@@ -57,20 +52,24 @@ public class Task_233_2 implements ITask {
                     long p3 = pt1[k];
                     if (p3 == p1 || p3==p2) continue;
 
-                    long n3 = n * p3;
+                    long n3 = n2 * p3;
                     if (n3 > LIM) break;
 
                     //n3 itself
-                    res += n3;
+//                    res += n3;
 
-                    long n4 = n3+n3;
-                    for (int m = 2; n4 <= LIM; ++m) {
-//                        if (isNotDivisible(m, pt1)) {
-                            res += n4;
-  //                      }
-                        n4 *= 2;
-//                        n4 += n3;
+                    if (res < 0) {
+                        System.out.println("ouch!");
                     }
+                    res += p3multSums[(int) (LIM/n3)]*n3;
+
+//                    long n4 = 3*n3;
+//                    for (int m = 3; n4 <= LIM; m += 2) {
+//                        if (isNotDivisible(m, pt1)) {
+//                            res += n4;
+//                        }
+//                        n4 += 2*n3;
+//                    }
                 }
             }
         }
@@ -78,39 +77,18 @@ public class Task_233_2 implements ITask {
         System.out.println(res);
     }
 
-    private long f(long n) {
-        long res = 1;
+    private boolean fillP3Numbers(long n, int ind) {
+        if (n >= onlyp3mults.length) return false;
 
-        for (long p : prs) {
-            if (p * p > n) {
+        onlyp3mults[(int)n] = true;
+
+        for (int i = ind; i < cnt3; ++i) {
+            if (!fillP3Numbers(n * pt3[i], i)) {
                 break;
             }
-
-            int cnt = 0;
-            while (n % p == 0) {
-                cnt += 2;
-                n /= p;
-            }
-
-            if (p%4==1) {
-                res *= (cnt+1);
-                if (res > 105) return 421;
-            }
         }
 
-        if (n != 1 && n%4==1) {
-            res *= (2+1);
-        }
-
-        return 4*res;
-
-//        res = (res+1)/2;
-
-//        return (res-1)*8 + 4;
-    }
-
-    public static void main(String[] args) {
-        Tester.test(new Task_233_2());
+        return true;
     }
 
     private boolean isNotDivisible(int n, long[] pt1) {
@@ -120,5 +98,9 @@ public class Task_233_2 implements ITask {
             if (n%p == 0) return false;
         }
         return true;
+    }
+
+    public static void main(String[] args) {
+        Tester.test(new Task_233_2());
     }
 }
