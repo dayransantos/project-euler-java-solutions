@@ -10,20 +10,14 @@ import static utils.MyMath.getPrimesBetween;
 public class Task_233 implements ITask {
 
     final long LIM = 100000000000L;
-    final long LIM2 = LIM / 2;
 
     int cnt1 = 0;
-    int cnt3 = 0;
     int cnt32 = 0;
     long pt1[] = new long[200000];
-    long pt3[] = new long[200000];
     long pt32[] = new long[200000];
 
-    boolean onlyp3mults[] = new boolean[300000];
-    long p3multSums[] = new long[300000];
-
-    boolean onlyp32mults[] = new boolean[300000];
-    long p32multSums[] = new long[300000];
+    boolean isSutableMultiplier[] = new boolean[300000];
+    long suitablesSum[] = new long[300000];
 
     public void solving() {
         pt32[cnt32++] = 2;
@@ -31,29 +25,21 @@ public class Task_233 implements ITask {
             if (p % 4 == 1) {
                 pt1[cnt1++] = p;
             } else {
-                pt3[cnt3++] = p;
                 pt32[cnt32++] = p;
             }
         }
 
-        fillSuitableNumbers(1, 0, onlyp3mults, pt3, cnt3);
-        for (int i = 1; i < p3multSums.length; ++i) {
-            p3multSums[i] = p3multSums[i - 1] + (onlyp3mults[i] ? i : 0);
+        fillSuitableMultipliers(1, 0);
+        for (int i = 1; i < suitablesSum.length; ++i) {
+            suitablesSum[i] = suitablesSum[i - 1] + (isSutableMultiplier[i] ? i : 0);
         }
 
-        fillSuitableNumbers(1, 0, onlyp32mults, pt32, cnt32);
-        for (int i = 1; i < p32multSums.length; ++i) {
-            p32multSums[i] = p32multSums[i - 1] + (onlyp32mults[i] ? i : 0);
-        }
-
-        long res = sumWith123factors(p3multSums, LIM, 1) + sumWith123factors(p32multSums, LIM2, 2) +
-                   sumWith73factors(p3multSums, LIM, 1) + sumWith73factors(p32multSums, LIM2, 2) +
-                   sumWith102factors(p3multSums, LIM, 1) + sumWith102factors(p32multSums, LIM2, 2);
+        long res = sumWith123factors() + sumWith73factors() + sumWith102factors();
 
         System.out.println(res);
     }
 
-    private long sumWith123factors(long[] suitablesSum, long LIM, int factor) {
+    private long sumWith123factors() {
         long res = 0;
         for (int i = 0; i < cnt1; ++i) {
             long p1 = pt1[i];
@@ -87,14 +73,14 @@ public class Task_233 implements ITask {
                         break;
                     }
 
-                    res += suitablesSum[(int) (LIM / n3)] * n3 * factor;
+                    res += suitablesSum[(int) (LIM / n3)] * n3;
                 }
             }
         }
         return res;
     }
 
-    private long sumWith73factors(long[] suitablesSum, long LIM, int factor) {
+    private long sumWith73factors() {
         long res = 0;
         for (int i = 0; i < cnt1; ++i) {
             long p1 = pt1[i];
@@ -116,13 +102,13 @@ public class Task_233 implements ITask {
                     break;
                 }
 
-                res += suitablesSum[(int) (LIM / n2)] * n2 * factor;
+                res += suitablesSum[(int) (LIM / n2)] * n2;
             }
         }
         return res;
     }
 
-    private long sumWith102factors(long[] suitablesSum, long LIM, int factor) {
+    private long sumWith102factors() {
         long res = 0;
         for (int i = 0; i < cnt1; ++i) {
             long p1 = pt1[i];
@@ -144,21 +130,21 @@ public class Task_233 implements ITask {
                     break;
                 }
 
-                res += suitablesSum[(int) (LIM / n2)] * n2 * factor;
+                res += suitablesSum[(int) (LIM / n2)] * n2;
             }
         }
         return res;
     }
 
-    private boolean fillSuitableNumbers(long n, int ind, boolean[] isSuitableNumber, long[] primes, int pcnt) {
-        if (n >= isSuitableNumber.length) {
+    private boolean fillSuitableMultipliers(long n, int ind) {
+        if (n >= isSutableMultiplier.length) {
             return false;
         }
 
-        isSuitableNumber[(int) n] = true;
+        isSutableMultiplier[(int) n] = true;
 
-        for (int i = ind; i < pcnt; ++i) {
-            if (!fillSuitableNumbers(n * primes[i], i, isSuitableNumber, primes, pcnt)) {
+        for (int i = ind; i < cnt32; ++i) {
+            if (!fillSuitableMultipliers(n * pt32[i], i)) {
                 break;
             }
         }
