@@ -1,3 +1,10 @@
+- triangular problems to solve
+    - 153, 253, 276, 300, 325
+
+- lucky problems to solve
+    - !163, 189, !195, 219, !223, !237, !259, .261
+
+
 !!Math atlas: http://www.math.niu.edu/~rusin/known-math/index/11PXX.html
 
 - Number of ways to express the number as sum of 2 squares:
