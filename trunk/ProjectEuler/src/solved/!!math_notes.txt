@@ -1,13 +1,14 @@
 !!Math atlas: http://www.math.niu.edu/~rusin/known-math/index/11PXX.html
 
-Number of ways to express the number as sum of 2 squares:
-    http://www.math.niu.edu/~rusin/known-math/93_back/2squares
+- Number of ways to express the number as sum of 2 squares:
+    - http://www.math.niu.edu/~rusin/known-math/93_back/2squares
 
-Pythagorean triples:
-  Task numbers: 138, 139, 176
-
-  Generating:
-    a = m^2 - n^2;
-    b = 2*m*n;
-    c = m^2 + n^2;
-
+- Pythagorean triples:
+    - Task numbers: 138, 139, 143, 176
+    - Generating:
+        a = m^2 - n^2;
+        b = 2*m*n;
+        c = m^2 + n^2;
+    - http://projecteuler.net/problem=143
+        one of the comments in the forum shows general way of parametrizing possible integer roots of equeations like
+            a^2 + b^2 = c^2 (this one being just special case)
