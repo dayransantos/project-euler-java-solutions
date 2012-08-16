@@ -10,6 +10,10 @@
 - Number of ways to express the number as sum of 2 squares:
     - http://www.math.niu.edu/~rusin/known-math/93_back/2squares
 
+    
+!! document about Pythagorean triples and other:
+    - http://pythag.net/node24.html    
+    
 - Pythagorean triples:
     - Task numbers: 138, 139, 143, 176
     - Generating:

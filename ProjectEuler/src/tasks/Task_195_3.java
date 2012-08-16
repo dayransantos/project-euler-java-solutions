@@ -4,6 +4,7 @@ import static java.lang.Math.sqrt;
 import static utils.MyMath.*;
 
 //Answer :
+//@see: http://pythag.net/node10.html
 public class Task_195_3 implements ITask {
 //       T(100) = 1234, T(1000) = 22767, and T(10000) = 359912.
 //       Find T(1053779).
