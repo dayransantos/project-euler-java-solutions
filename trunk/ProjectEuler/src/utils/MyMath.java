@@ -29,8 +29,8 @@ public class MyMath {
 
     public static long gcd(long a, long b) {
         if (b == 0) return a;
-        a = abs(a);
-        b = abs(b);
+//        a = abs(a);
+//        b = abs(b);
 
         while (b != 0) {
             long t = a % b;
@@ -42,8 +42,8 @@ public class MyMath {
 
     public static int gcd(int a, int b) {
         if (b == 0) return a;
-        a = abs(a);
-        b = abs(b);
+//        a = abs(a);
+//        b = abs(b);
 
         while (b != 0) {
             int t = a % b;
@@ -244,8 +244,8 @@ public class MyMath {
 
         return all;
     }
-    private final static int MAX_PRIMES_TO_CACHE = 1500000;
-//    private final static int MAX_PRIMES_TO_CACHE = 5800000;
+//    private final static int MAX_PRIMES_TO_CACHE = 1500000;
+    private final static int MAX_PRIMES_TO_CACHE = 5800000;
 
     private static void initPrimesList() {
         if (cachedPrimes != null) {
@@ -462,5 +462,37 @@ public class MyMath {
 
     public static BigInteger bi(long n) {
         return valueOf(n);
+    }
+
+    /**
+     * when d == -1
+     * @param a
+     * @param n
+     * @return
+     */
+    public static long inverseEuclid(long a, long n) {
+        long x = 0;
+        long y = 0;
+
+        long b = n;
+
+        long x2 = -1;
+        long x1 = 0;
+        long y2 = 0;
+        long y1 = 1;
+        while (b > 0) {
+            long q = a/b;
+            long r = a - q*b;
+            x = x2 - q*x1;
+            y = y2 - q*y1;
+
+            a = b;
+            b = r;
+            x2 = x1;
+            x1 = x;
+            y2 = y1;
+            y1 = y;
+        }
+        return x2 >= 0 ? x2 : n - x2;
     }
 }
