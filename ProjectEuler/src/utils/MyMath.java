@@ -476,7 +476,7 @@ public class MyMath {
 
         long b = n;
 
-        long x2 = -1;
+        long x2 = 1;
         long x1 = 0;
         long y2 = 0;
         long y1 = 1;
@@ -493,6 +493,6 @@ public class MyMath {
             y2 = y1;
             y1 = y;
         }
-        return x2 >= 0 ? x2 : n - x2;
+        return x2;
     }
 }

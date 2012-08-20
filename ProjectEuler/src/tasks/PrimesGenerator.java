@@ -7,8 +7,8 @@ import static utils.MyMath.doEratosthen;
 
 
 public class PrimesGenerator {
-    static boolean isPrime[] = new boolean[4733800];
-    static long primes[] = new long[500000];
+    static boolean isPrime[] = new boolean[100000000];
+    static long primes[] = new long[5800000];
     static int primesCount = 0;
 
     public static void main(String[] args) {
