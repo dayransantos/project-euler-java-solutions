@@ -1,63 +1,96 @@
 package tasks;
 
 import static java.lang.Math.sqrt;
+import static utils.MyMath.gcd;
 
 //Answer :
+//@see: http://pythag.net/node10.html
+//        double p = (a+b+c);
+//        double r = sqrt((p-2*a)*(p-2*b)*(p-2*c)/p/4);
+//
+//        due to http://pythag.net/node10.html
+//        (a, b, c) is integer-sides of 60-deg triangle, iff (m > n) && (m-n)%3 != 0
+//
+//        1)
+//          a = k*(2*m*n + m*m);
+//          b = k*(2*m*n + n*n);
+//          c = k*(m*m + n*n + m*n);
+//          p = 5*m*n + 2*m*m + 2*n*n
+//          pa = m*n + 2*n*n = n*(m+2n)
+//          pb = m*n + 2*m*m = m*(n+2m)
+//          pc = 3*m*n
+//          pabc = 3*m2*n2*(5*m*n+2*m2+2*n2)
+//          pr = sqrt(3)/2*m*n
+//
+//        or
+//        2)
+//          a = k*(m*m - n*n);
+//          b = k*(2*m*n + m*m);
+//          c = k*(m*m + n*n + m*n);
+//          p = 3*m*n + 3*m2 = 3*m*(m+n)
+//          pa = 3*m*n + m2 + 2*n2 = (m+n)*(m+2n)
+//          pb = m2 - m*n = m*(m-n)
+//          pc = m*n + m2 - 2*n2 = (m-n)*(m+2n)
+//          pabc = m * (m+n) * (m-n)^2 * (m+2n)^2
+//          pr = (m-n)*(m+2*n)/(2*sqrt(3))
 public class Task_195 implements ITask {
 //       T(100) = 1234, T(1000) = 22767, and T(10000) = 359912.
 //       Find T(1053779).
 //    private static final long LIM = 75085391;
-//    private static final long n = 1053779;
 
-//    private static final long LIM = 359912;
-//    private static final long n = 10000;
-//
-    private static final int LIM = 1234;
-    private static final int n = 100;
+    private static final double sq3 = sqrt(3);
 
-//    private static final int LIM = 22767;
-//    private static final int n = 1000;
+//    private static final int N = 100;
+//    private static final int N = 1000;
+    private static final long N = 10000;
+//    private static final long N = 1053779;
 
-    private static final long n2 = n * n;
-    private static final long n212 = 12 * n2;
-    double sq3 = sqrt(3);
+
+    private static final double NM3 = 2*N*sq3;
+    private static final double ND3 = 2.0*N/sq3;
+
+    long res = 0;
 
     public void solving() {
-        long res = 0;
-        for (long a = 2; ; ++a) {
-            long a2 = a * a;
+        long mlim = (long) (ND3);
+        for (long m = 2; m <= mlim; m+=2) {
+            long mdr = 0;
+            for (int mod = 1; mod < 3; ++mod) {
+                long nb = (m-mod)%3;
+                if (nb % 2 == 0) nb += 3;
 
-            long maxb = (a2<=12*n2) ? (a-1) : (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
-//            long minc2 = 3*a2/4;
-//            long maxc2minus = a2 + 1 - a;
-//            long maxc2plus = a2 + maxb*maxb - a*maxb;
-            for (long b = 1; b <= maxb; ++b) {
-                long b2 = b * b;
-                long c2 = a2 + b2 - a * b;
-                double dc = sqrt(c2);
-
-                long c = (long) dc;
-                if (c == a || c == b || c * c != c2) {
-                    continue;
-                }
-
-//                double p = (a + b + dc);
-//                if (sq3 * a * b > 2 * n * p) {
-//                    break;
-//                }
-//                double r = sq3 * a * b / (2 * p);
-//                ++res;
-//                System.out.println(res + ": " + a + " " + b + " " + c + " " + r);
-
-                ++res;
-                System.out.println(res + ": " + a + " " + b + " " + c);
-                if (res % 1000 == 0 || res>=LIM-10 || res < 11) {
-//                    System.out.println(res + ": " + a + " " + b + " " + c);
+                for (long n = nb; n < m; n+=6) {
+                    if (gcd(m, n)==1) {
+                        long dr = (long)(ND3/m/n) + (long)(NM3/(m-n)/(m+2*n));
+                        if (dr < 0) {
+                            break;
+                        }
+                        res += dr;
+                        mdr += dr;
+                    }
                 }
             }
+            System.out.println(m + ": " + mdr);
         }
 
-//        System.out.println(res);
+        for (long m = 3; m <= mlim; m+=2) {
+            long mdr = 0;
+            for (int mod = 1; mod < 3; ++mod) {
+                for (long n = (m-mod)%3; n < m; n+=3) {
+                    if (gcd(m, n)==1) {
+                        long dr = (long)(ND3/m/n) + (long)(NM3/(m-n)/(m+2*n));
+                        if (dr < 0) {
+                            break;
+                        }
+                        res += dr;
+                        mdr += dr;
+                    }
+                }
+            }
+            System.out.println(m + ": " + mdr);
+        }
+
+        System.out.println(res);
     }
 
     public static void main(String[] args) {
