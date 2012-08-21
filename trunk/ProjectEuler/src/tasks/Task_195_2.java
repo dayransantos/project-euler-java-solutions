@@ -1,145 +1,87 @@
 package tasks;
 
 import static java.lang.Math.sqrt;
-import static utils.MyMath.getCachedPrimes;
 
 //Answer :
+//@see: http://pythag.net/node10.html
+//        double p = (a+b+c);
+//        double r = sqrt((p-2*a)*(p-2*b)*(p-2*c)/p/4);
+//
+//        due to http://pythag.net/node10.html
+//        (a, b, c) is integer-sides of 60-deg triangle, iff (m > n) && (m-n)%3 != 0
+//
+//        1)
+//          a = k*(2*m*n + m*m);
+//          b = k*(2*m*n + n*n);
+//          c = k*(m*m + n*n + m*n);
+//          p = 5*m*n + 2*m*m + 2*n*n
+//          pa = m*n + 2*n*n = n*(m+2n)
+//          pb = m*n + 2*m*m = m*(n+2m)
+//          pc = 3*m*n
+//          pabc = 3*m2*n2*(5*m*n+2*m2+2*n2)
+//          pr = sqrt(3)/2*m*n
+//
+//        or
+//        2)
+//          a = k*(m*m - n*n);
+//          b = k*(2*m*n + m*m);
+//          c = k*(m*m + n*n + m*n);
+//          p = 3*m*n + 3*m2 = 3*m*(m+n)
+//          pa = 3*m*n + m2 + 2*n2 = (m+n)*(m+2n)
+//          pb = m2 - m*n = m*(m-n)
+//          pc = m*n + m2 - 2*n2 = (m-n)*(m+2n)
+//          pabc = m * (m+n) * (m-n)^2 * (m+2n)^2
+//          pr = (m-n)*(m+2*n)/(2*sqrt(3))
 public class Task_195_2 implements ITask {
 //       T(100) = 1234, T(1000) = 22767, and T(10000) = 359912.
 //       Find T(1053779).
 //    private static final long LIM = 75085391;
-//    private static final long n = 1053779;
 
-//    private static final long LIM = 359912;
-//    private static final long n = 10000;
-//
-    private static final int LIM = 1234;
-    private static final int n = 100;
-
-//    private static final int LIM = 22767;
-//    private static final int n = 1000;
-
-    private static final long n2 = n * n;
-    private static final long n212 = 12 * n2;
     private static final double sq3 = sqrt(3);
 
-    long prs[];
+    private static final int N = 100;
+//    private static final int N = 1000;
+//    private static final long N = 10000;
+//    private static final long N = 1053779;
 
-    long factors[] = new long[200];
-    int factPow[] = new int[200];
-    int fcnt = 0;
+    private static final double NM3 = 2*N*sq3;
+    private static final double ND3 = 2.0*N/sq3;
+    private static final long mlim = (long) ND3 + 1;
+
 
     long res = 0;
-    private long a;
-    private long maxb;
 
     public void solving() {
-//        c2 = a2 + b2 - ab;
-//        b2 - b * a - (c2 - a2) = 0;
-//        D = a2 + 4c2 - 4a2 = 4c2 - 3a2 = B2;
-//
-//        b = (a +- sqrt(4c2 - 3a2))/2
-//
-//        B2 + 3a2 = (2c)^2
-//
-//        3a2 = (2c - B)(2c + B) => B, c => b1,2 = a +- sqrt(B)
-
-        prs = getCachedPrimes();
-
-        System.out.println("");
-
-        for (a = 2; ; ++a) {
-            long a2 = a * a;
-//            maxb = (a2<=12*n2) ? (a-1) : (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
-            maxb = (a2<=12*n2) ? (a-1) : (long) ((12 * n2 - 4 * n * a * sq3) / (4 * n * sq3 - 3 * a));
-
-            factorize3a2(a);
-
-            find(0, 1, 3 * a2);
-        }
-//        System.out.println(res);
+        a[0] = a[1] = 1;
+        genCoPrime2(1, 1);
+        System.out.println(res);
     }
 
-    private void find(int ind, long f1, long f2) {
-        if (f1 > f2) {
-            return;
-        }
+    long a[] = new long[32];
+    private void genCoPrime(int k) {
+        for (a[k+1] = a[k] + a[k-1]; a[k+1] <= mlim; a[k+1] += a[k]) {
+            long m = a[k+1];
+            long n = a[k];
 
-        if (ind == fcnt) {
-            long fs = f1 + f2;
-            long fd = f2 - f1;
-            if (fs % 4 != 0 && fd%2!=0) return;
-
-            long c = fs / 4;
-            long B = fd / 2;
-            long b1 = a + B;
-            long b2 = a - B;
-
-            if(check(a, b1, c)) {
-                System.out.println(res + ": " + a + " " + b1/2 + " " + c);
-            }
-            if(check(a, b2, c)) {
-                System.out.println(res + ": " + a + " " + b2/2 + " " + c);
+            if ((m-n)%3 != 0) {
+                long dr = (long)(ND3/m/n) + (long)(NM3/(m-n)/(m+2*n));
+                res += dr;
             }
 
-            return;
-        }
-
-        long factor = factors[ind];
-        int maxcnt = factPow[ind];
-        int mincnt = 0;
-        if (factor == 2) {
-            mincnt++;
-            maxcnt--;
-            f1 *= 2;
-            f2 /= 2;
-        }
-
-        for (int cnt = mincnt; cnt <= maxcnt; cnt++, f1 *= factor, f2 /= factor) {
-            find(ind + 1, f1, f2);
+            genCoPrime(k+1);
         }
     }
+    private void genCoPrime2(long a, long b) {
+        for (long c = a + b; c <= mlim; c += b) {
+            long m = c;
+            long n = b;
 
-    private boolean check(long a, long b2, long c) {
-        if (b2%2!=0) {
-            return false;
-        }
-        long b = b2/2;
-        if (b > maxb || b < 1) {
-            return false;
-        }
-
-        res ++;
-
-        return true;
-    }
-
-    private void factorize3a2(long a) {
-        fcnt = 0;
-        for (long p : prs) {
-            if (p * p > a && p != 3) {
-                break;
+            if ((m-n)%3 != 0) {
+                long dr = (long)(ND3/m/n) + (long)(NM3/(m-n)/(m+2*n));
+                res += dr;
             }
 
-            int cnt = 0;
-            while (a % p == 0) {
-                cnt += 2;
-                a /= p;
-            }
-
-            if (p == 3) {
-                ++cnt;
-            }
-
-            if (cnt > 0) {
-                factors[fcnt] = p;
-                factPow[fcnt++] = cnt;
-            }
-        }
-
-        if (a != 1) {
-            factors[fcnt] = a;
-            factPow[fcnt++] = a==3 ? 3 : 2;
+            genCoPrime2(m, n);
         }
     }
 
