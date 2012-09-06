@@ -41,10 +41,9 @@ public class Task_195 implements ITask {
     private static final double sq3 = sqrt(3);
 
 //    private static final int N = 100;
-//    private static final int N = 1000;
-    private static final long N = 10000;
+    private static final int N = 1000;
+//    private static final long N = 10000;
 //    private static final long N = 1053779;
-
 
     private static final double NM3 = 2*N*sq3;
     private static final double ND3 = 2.0*N/sq3;
@@ -52,33 +51,15 @@ public class Task_195 implements ITask {
     long res = 0;
 
     public void solving() {
-        long mlim = (long) (ND3);
-        for (long m = 2; m <= mlim; m+=2) {
-            long mdr = 0;
-            for (int mod = 1; mod < 3; ++mod) {
-                long nb = (m-mod)%3;
-                if (nb % 2 == 0) nb += 3;
-
-                for (long n = nb; n < m; n+=6) {
-                    if (gcd(m, n)==1) {
-                        long dr = (long)(ND3/m/n) + (long)(NM3/(m-n)/(m+2*n));
-                        if (dr < 0) {
-                            break;
-                        }
-                        res += dr;
-                        mdr += dr;
-                    }
-                }
-            }
-            System.out.println(m + ": " + mdr);
-        }
-
-        for (long m = 3; m <= mlim; m+=2) {
+        long mlim = (long) (ND3+1);
+        for (long m = 2; m <= mlim; m++) {
             long mdr = 0;
             for (int mod = 1; mod < 3; ++mod) {
                 for (long n = (m-mod)%3; n < m; n+=3) {
                     if (gcd(m, n)==1) {
                         long dr = (long)(ND3/m/n) + (long)(NM3/(m-n)/(m+2*n));
+//                        long dr = (long)(ND3/m/n);
+//                        long dr = (long)(NM3/(m-n)/(m+2*n));
                         if (dr < 0) {
                             break;
                         }
