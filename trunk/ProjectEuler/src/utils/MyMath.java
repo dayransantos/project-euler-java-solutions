@@ -465,10 +465,7 @@ public class MyMath {
     }
 
     /**
-     * when d == -1
-     * @param a
-     * @param n
-     * @return
+     * solving ax + n*y == 1
      */
     public static long inverseEuclid(long a, long n) {
         long x = 0;

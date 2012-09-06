@@ -39,39 +39,26 @@ public class Task_195_2 implements ITask {
 
     private static final double sq3 = sqrt(3);
 
-    private static final int N = 100;
-//    private static final int N = 1000;
+//    private static final int N = 100;
+    private static final int N = 1000;
 //    private static final long N = 10000;
 //    private static final long N = 1053779;
 
-    private static final double NM3 = 2*N*sq3;
-    private static final double ND3 = 2.0*N/sq3;
+    private static final double NM3 = (long)2*N*sq3;
+    private static final double ND3 = (long)2.0*N/sq3;
+//    private static final double NM3 = 2*N*sq3;
+//    private static final double ND3 = 2.0*N/sq3;
     private static final long mlim = (long) ND3 + 1;
-
 
     long res = 0;
 
     public void solving() {
-        a[0] = a[1] = 1;
-        genCoPrime2(1, 1);
+        genCoPrimes(1, 1);
         System.out.println(res);
     }
 
-    long a[] = new long[32];
-    private void genCoPrime(int k) {
-        for (a[k+1] = a[k] + a[k-1]; a[k+1] <= mlim; a[k+1] += a[k]) {
-            long m = a[k+1];
-            long n = a[k];
-
-            if ((m-n)%3 != 0) {
-                long dr = (long)(ND3/m/n) + (long)(NM3/(m-n)/(m+2*n));
-                res += dr;
-            }
-
-            genCoPrime(k+1);
-        }
-    }
-    private void genCoPrime2(long a, long b) {
+    @SuppressWarnings("UnnecessaryLocalVariable")
+    private void genCoPrimes(long a, long b) {
         for (long c = a + b; c <= mlim; c += b) {
             long m = c;
             long n = b;
@@ -81,7 +68,7 @@ public class Task_195_2 implements ITask {
                 res += dr;
             }
 
-            genCoPrime2(m, n);
+            genCoPrimes(b, c);
         }
     }
 
