@@ -1,9 +1,12 @@
-package tasks;
+package solved;
+
+import tasks.ITask;
+import tasks.Tester;
 
 import static java.lang.Math.sqrt;
 import static utils.MyMath.gcd;
 
-//Answer :
+//Answer : 75085391
 //@see: http://pythag.net/node10.html
 //        double p = (a+b+c);
 //        double r = sqrt((p-2*a)*(p-2*b)*(p-2*c)/p/4);
@@ -34,41 +37,40 @@ import static utils.MyMath.gcd;
 //          pabc = m * (m+n) * (m-n)^2 * (m+2n)^2
 //          pr = (m-n)*(m+2*n)/(2*sqrt(3))
 public class Task_195 implements ITask {
-//       T(100) = 1234, T(1000) = 22767, and T(10000) = 359912.
-//       Find T(1053779).
-//    private static final long LIM = 75085391;
+//    private static final long N = 1053779;
+    private static final long N = 153779;
 
     private static final double sq3 = sqrt(3);
-
-//    private static final int N = 100;
-    private static final int N = 1000;
-//    private static final long N = 10000;
-//    private static final long N = 1053779;
-
     private static final double NM3 = 2*N*sq3;
     private static final double ND3 = 2.0*N/sq3;
 
     long res = 0;
 
     public void solving() {
-        long mlim = (long) (ND3+1);
-        for (long m = 2; m <= mlim; m++) {
-            long mdr = 0;
-            for (int mod = 1; mod < 3; ++mod) {
-                for (long n = (m-mod)%3; n < m; n+=3) {
-                    if (gcd(m, n)==1) {
-                        long dr = (long)(ND3/m/n) + (long)(NM3/(m-n)/(m+2*n));
-//                        long dr = (long)(ND3/m/n);
-//                        long dr = (long)(NM3/(m-n)/(m+2*n));
-                        if (dr < 0) {
-                            break;
+        long res = 0;
+        for (long r = 1; r <= NM3; ++r) {
+            for (long dmn = 1; dmn * dmn < r; ++dmn) {
+                if (r % dmn == 0) {
+                    long dmx = r / dmn;
+
+                    if ((dmx - dmn) % 3 == 0) {
+                        // m - n = dmn
+                        // m + 2*n = dmx
+                        long m = 2*dmn + dmx;
+                        if (m%3 == 0) {
+                            m /= 3;
+                            long n = (dmx - dmn) / 3;
+                            if ((m - n) % 3 != 0 && gcd(m, n) == 1) {
+                                res += NM3/r;
+                            }
                         }
-                        res += dr;
-                        mdr += dr;
+                    } else if (r<=ND3 && gcd(dmn, dmx) == 1) {
+                        // m = dmx;
+                        // n = dmn;
+                        res += ND3/r;
                     }
                 }
             }
-            System.out.println(m + ": " + mdr);
         }
 
         System.out.println(res);

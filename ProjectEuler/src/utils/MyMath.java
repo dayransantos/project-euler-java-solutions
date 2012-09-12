@@ -431,15 +431,15 @@ public class MyMath {
     }
 
     public static boolean isBitSet(long n, int bInd) {
-        return (n & (1<<bInd)) != 0;
+        return (n & (1L<<bInd)) != 0;
     }
 
     public static long setBit(long n, int bInd) {
-        return n | (1<<bInd);
+        return n | (1L<<bInd);
     }
 
     public static long unSetBit(long n, int bInd) {
-        return n & (~(1<<bInd));
+        return n & (~(1L<<bInd));
     }
 
     public static int sumOfDigits(long n) {
