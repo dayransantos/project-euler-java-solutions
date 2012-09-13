@@ -492,4 +492,33 @@ public class MyMath {
         }
         return x2;
     }
+
+    public static long modInverse(long a, long mod) {
+        long inv = inverseEuclid(a, mod);
+        return inv < 0 ? mod + inv : inv;
+    }
+
+    public static long modPow(long a, long pow, long mod) {
+        assert (a >= 0 || pow >= 0);
+
+        if (pow == 0) {
+            return 1;
+        }
+
+        while ((pow & 1) == 0) {
+            a = a * a % mod;
+            pow >>= 1;
+        }
+
+        long r = a;
+
+        while ((pow >>= 1) > 0) {
+            a = a * a % mod;
+            if ((pow & 1) != 0) {
+                r = r * a % mod;
+            }
+        }
+
+        return r;
+    }
 }
