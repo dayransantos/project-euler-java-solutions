@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 //Answer :
 public class Task_152_2 implements ITask {
-    private static final int MAX_NUM = 45;
+    private static final int MAX_NUM = 80;
     private static final double halfd = 1.0/2.0;
     private static final double EPS = 1e-11;
 
