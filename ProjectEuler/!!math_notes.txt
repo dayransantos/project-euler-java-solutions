@@ -1,3 +1,6 @@
+- could-be-interesting problems:
+    - 361, 362
+
 - triangular problems to solve
     - 153, 253, 276, 300, 325
 
