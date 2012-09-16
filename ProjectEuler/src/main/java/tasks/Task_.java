@@ -1,5 +1,11 @@
 package tasks;
 
+import static utils.MyMath.*;
+import static java.lang.Math.*;
+import static java.math.BigInteger.*;
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
+
 import utils.log.Logger;
 
 //Answer :

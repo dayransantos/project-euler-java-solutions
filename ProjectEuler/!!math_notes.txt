@@ -10,6 +10,10 @@
 
 !!Math atlas: http://www.math.niu.edu/~rusin/known-math/index/11PXX.html
 
+- different primality tests/sieves/generators, numbers factorization:
+    - http://www.devalco.de -> http://109.90.3.58/devalco/
+
+
 - Number of ways to express the number as sum of 2 squares:
     - http://www.math.niu.edu/~rusin/known-math/93_back/2squares
 

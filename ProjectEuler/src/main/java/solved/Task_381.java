@@ -18,7 +18,7 @@ public class Task_381 implements ITask {
     public void solving() {
         long res = 0;
         for (long p : MyMath.getPrimesBetween(5, LIM)) {
-            long r = (p - MyMath.inverseEuclid(8, p)) % p;
+            long r = (p - MyMath.modInverse(8, p)) % p;
             res += (3*r) % p;
         }
         System.out.println(res);
