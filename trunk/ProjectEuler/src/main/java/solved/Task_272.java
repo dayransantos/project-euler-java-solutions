@@ -21,7 +21,6 @@ public class Task_272 implements ITask {
 
     long[] needprimes;
     int np;
-    long[] otherprimes;
     int op;
 
     long fr[] = new long[210000];
@@ -30,7 +29,6 @@ public class Task_272 implements ITask {
     public void solving() {
         long hiprime = LIM / (9 * 7 * 13 * 19);
         needprimes = MyMath.getPrimesBetween(0, hiprime);
-        otherprimes = new long[needprimes.length];
 
         Arrays.fill(fr, -1);
 
@@ -53,8 +51,6 @@ public class Task_272 implements ITask {
         for (long p : needprimes) {
             if (p%3 == 1) {
                 needprimes[np++] = p;
-            } else {
-                otherprimes[op++] = p;
             }
         }
 

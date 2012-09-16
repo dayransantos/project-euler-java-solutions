@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static java.lang.Math.*;
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.ZERO;
 import static java.math.BigInteger.valueOf;
 
 public class MyMath {
@@ -244,8 +246,11 @@ public class MyMath {
 
         return all;
     }
-//    private final static int MAX_PRIMES_TO_CACHE = 1500000;
-    private final static int MAX_PRIMES_TO_CACHE = 5800000;
+//    private static int MAX_PRIMES_TO_CACHE = 1500000;
+    private static int MAX_PRIMES_TO_CACHE = 5800000;
+    public static void setMaxPrimesToCache(int maxPrimesToCache) {
+        MAX_PRIMES_TO_CACHE = maxPrimesToCache;
+    }
 
     private static void initPrimesList() {
         if (cachedPrimes != null) {
@@ -442,6 +447,16 @@ public class MyMath {
         return n & (~(1L<<bInd));
     }
 
+    public static int bitCount(long n) {
+        int res = 0;
+        while (n != 0) {
+            ++res;
+            n &= n - 1;
+        }
+
+        return res;
+    }
+
     public static int sumOfDigits(long n) {
         int sum = 0;
         while (n != 0) {
@@ -450,6 +465,14 @@ public class MyMath {
         }
 
         return sum;
+    }
+
+    public static int signum(long a) {
+        return a > 0
+               ? 1
+               : a < 0
+                 ? -1
+                 : 0;
     }
 
     public static int numberOfDigits(long n) {
@@ -465,32 +488,128 @@ public class MyMath {
     }
 
     /**
-     * solving ax + n*y == 1
+     * solving ax + by = c
+     * see http://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Iterative_method_2
      */
-    public static long inverseEuclid(long a, long n) {
+    public static long[] solveLinearDiaophanteEq(long a, long b, long c) {
+        assert (a != 0 || b != 0);
+        if (c < 0) {
+            a = -a;
+            b = -b;
+            c = -c;
+        }
+
+        int sa = signum(a);
+        int sb = signum(b);
+
+        if (a < 0) {
+            a = -a;
+        }
+
+        if (b < 0) {
+            b = -b;
+        }
+
         long x = 0;
-        long y = 0;
+        long lastx = 1;
+        long y = 1;
+        long lasty = 0;
+        long q, r;
+        while (b != 0) {
+            q = a / b;
 
-        long b = n;
+            r = a - q*b;
+            a = b;
+            b = r;
 
-        long x2 = 1;
-        long x1 = 0;
-        long y2 = 0;
-        long y1 = 1;
-        while (b > 0) {
-            long q = a/b;
-            long r = a - q*b;
-            x = x2 - q*x1;
-            y = y2 - q*y1;
+            r = lastx - q*x;
+            lastx = x;
+            x = r;
+
+            r = lasty - q*y;
+            lasty = y;
+            y = r;
+        }
+
+        if (c % a != 0) {
+            //keep it simple for now
+            throw new IllegalStateException("No solutions!!");
+        }
+
+        long k = c/a;
+
+        return new long[]{k * sa * lastx, k * sb * lasty};
+    }
+
+    public static BigInteger[] bSolveLinearDiaophanteEq(BigInteger a, BigInteger b, BigInteger c) {
+        if (c.compareTo(ZERO) < 0) {
+            a = a.negate();
+            b = b.negate();
+            c = c.negate();
+        }
+
+        int sa = a.signum();
+        int sb = b.signum();
+
+        if (a.compareTo(ZERO) < 0) {
+            a = a.negate();
+        }
+
+        if (b.compareTo(ZERO) < 0) {
+            b = b.negate();
+        }
+
+        BigInteger x = ZERO;
+        BigInteger lastx = ONE;
+        BigInteger y = ZERO;
+        BigInteger lasty = ONE;
+        BigInteger q, r;
+        BigInteger qr[];
+        while (!b.equals(ZERO)) {
+            qr = a.divideAndRemainder(b);
+
+            q = qr[0];
+            r = qr[1];
 
             a = b;
             b = r;
-            x2 = x1;
-            x1 = x;
-            y2 = y1;
-            y1 = y;
+
+            r = lastx.subtract(q.multiply(x));
+            lastx = x;
+            x = r;
+
+            r = lasty.subtract(q.multiply(y));
+            lasty = y;
+            y = r;
         }
-        return x2;
+
+        if (!c.mod(a).equals(ZERO)) {
+            //keep it simple for now
+            throw new IllegalStateException("No solutions!!");
+        }
+
+        BigInteger k = c.divide(a);
+
+        lastx = k.multiply(lastx);
+        lasty = k.multiply(lasty);
+
+        if (sa < 0) {
+            lastx = lastx.negate();
+        }
+
+        if (sb < 0) {
+            lasty = lasty.negate();
+        }
+
+        return new BigInteger[]{lastx, lasty};
+    }
+
+    /**
+     * returnds x from solving ax + n*y == 1
+     */
+    public static long inverseEuclid(long a, long n) {
+        long ret[] = solveLinearDiaophanteEq(a, n, 1);
+        return ret[0];
     }
 
     public static long modInverse(long a, long mod) {
@@ -520,5 +639,50 @@ public class MyMath {
         }
 
         return r;
+    }
+
+    //using: http://en.wikipedia.org/wiki/Shanks-Tonelli_algorithm
+    public static long modSqrt(long n, long p) {
+        if (p%4 == 3) {
+            return modPow(n, (p+1) / 4, p);
+        }
+
+        // split p-1 into Q * 2^S
+        int S = 0;
+        long Q = p - 1;
+        while (Q % 2 == 0) {
+            Q /= 2;
+            ++S;
+        }
+
+        // find a non-residue modulo p
+        long z = 2;
+        while (modPow(z, (p-1)/2, p) == 1) {
+            z = 2 + (long)(Math.random()*(p-3));
+        }
+
+        // main loop
+        long c = modPow(z, Q, p);
+        long R = modPow(n, (Q+1)/2, p);
+        long t = modPow(n, Q, p);
+        int M = S;
+        while (t != 1) {
+            int i = 0;
+            long tn = t;
+            while (tn != 1) {
+                ++i;
+                tn = (tn*tn)%p;
+            }
+
+            long b = modPow(c, 1 << (M - i - 1), p);
+            R = (R*b) % p;
+            c = b*b % p;
+            //t = t*b^2;
+            t = (t*c)%p;
+
+            M = i;
+        }
+
+        return R;
     }
 }
