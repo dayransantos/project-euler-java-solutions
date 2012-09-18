@@ -1,10 +1,12 @@
-package tasks;
+package solved;
 
+import tasks.ITask;
+import tasks.Tester;
 import utils.log.Logger;
 
 import static java.lang.Math.min;
 
-//Answer :
+//Answer : 479742450
 public class Task_154 implements ITask {
     public static void main(String[] args) {
         Logger.init("default.log");
@@ -36,10 +38,6 @@ public class Task_154 implements ITask {
         long n2 = t2[n];
         long res = 0;
         for (int i = n; i > n/3; --i) {
-            if (i % 1000 == 0) {
-                System.out.println("Progress: " + i);
-            }
-
             long i2 = n2 - t2[i];
             long i5 = n5 - t5[i];
             for (int j = min(n - i, i); j >= n-i-j && n-i-j >= 0; --j) {
@@ -47,7 +45,7 @@ public class Task_154 implements ITask {
                 long t10 = Math.min(i2 - t2[j] - t2[k], i5 - t5[j] - t5[k]);
 
                 if (t10 > 11) {
-                    if (i != j && i != k) {
+                    if (i != j && i != k && j != k) {
                         res += 6;
                     } else {
                         res += 3;
