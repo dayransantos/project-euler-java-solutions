@@ -33,7 +33,7 @@ public class Task_394 implements ITask {
             if (k % 100000000 == 0) {
                 System.out.println("Progress: " + k + " " + fk + " " + fs);
             }
-//            fk = (fk*(k2 - 2*k + 2) + (2*fs + 1) + 2*zn)/k2;
+//            fk = (fk*(k2 - 2*k + 2) +  (2*fs + 1) + 2*zn)/k2;
 //            fs = fs + fk + 1;
             fk = fk/k*(k-1)/k*(k-1) + (fk + 2.0*zn + 1)/k/k + 2*fs;
             fs = fs/(k+1)*k/(k+1)*k + (fk + 1)/(k+1)/(k+1);
