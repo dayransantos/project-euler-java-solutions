@@ -488,6 +488,35 @@ public class MyMath {
         return valueOf(n);
     }
 
+    /*
+     * http://en.wikipedia.org/wiki/Cornacchia%27s_algorithm
+     * http://www.schorn.ch/howto.html
+     */
+    public static long[] decomposePrimeAsToSquares(long p) {
+        assert p%4 == 1;
+
+        long b;
+        if (p%8 == 5) {
+            b = 2;
+        } else {
+            b = 3;
+            int i = 1;
+            while (modPow(b, (p-1)/2, p) == 1) {
+                b = getCachedPrimesInternal()[++i];
+            }
+        }
+
+        b = modPow(b, (p-1)/4, p);
+        // b is now a quadratic root of -1 mod p, i.e. b^2 = -1 mod p
+        long a = p;
+        while (b*b > p) {
+            long t = a % b;
+            a = b;
+            b = t;
+        }
+        return new long[] {b, a%b};
+    }
+
     /**
      * solving ax + by = c
      * see http://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Iterative_method_2
@@ -686,4 +715,6 @@ public class MyMath {
 
         return R;
     }
+
+
 }
