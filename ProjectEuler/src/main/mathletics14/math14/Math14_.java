@@ -13,7 +13,6 @@ public class Math14_ implements ITask {
     }
 
     public void solving() {
-        System.out.println("OK");
 
     }
 }
