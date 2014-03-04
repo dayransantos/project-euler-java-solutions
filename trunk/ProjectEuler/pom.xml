@@ -18,6 +18,29 @@
         </repository>
     </repositories>
 
+    <build>
+        <sourceDirectory>src/main/euler</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals><goal>add-source</goal></goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/generated</source>
+                                <source>src/main/scala</source>
+                                <source>src/main/mathletics14</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>            
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
           <groupId>org.jscience</groupId>
