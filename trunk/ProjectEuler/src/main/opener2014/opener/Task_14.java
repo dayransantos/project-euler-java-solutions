@@ -56,53 +56,60 @@ public class Task_14 implements ITask {
         dd = compete(d, d);
 
         long mx = 0;
-        byte mxa = 0;
-        byte mxb = 0;
-        byte mxc = 0;
+        long mxa = 0;
+        long mxb = 0;
+        long mxc = 0;
         LinkedHashMap<Long, Integer> current = new LinkedHashMap<Long, Integer>();
         ArrayList<Long> path = new ArrayList<Long>();
         
         long rr = find(1, 1, 1, 0, current, path);
         System.out.println(rr);
-        for (byte a = 0; a <= 100; ++a) {
-            int be = 100 - a;
-            for (byte b = 0; b <= be; ++b) {
-                int ce = 100 - a - b;
-                for (byte c = 0; c <= ce; ++c) {
-                    long r = find(a, b, c, (byte) (100-a-b-c), current, path);
+        for (long a = 0; a <= 100; ++a) {
+            long be = 100 - a;
+            for (long b = 0; b <= be; ++b) {
+                long ce = 100 - a - b;
+                for (long c = 0; c <= ce; ++c) {
+                    long r = find(a, b, c, 100-a-b-c, current, path);
                     if (r > mx) {
                         mx = r;
                         mxa = a;
                         mxb = b;
                         mxc = c;
+                    } else if (r == mx) {
+                        long mxd = 100 - mxa - mxb - mxc;
+                        System.out.println(mx);
+                        System.out.println(mxa + " " + mxb + " " + mxc + " " + mxd);
+                        System.out.println(getNum(mxa, mxb, mxc, mxd));
+                        System.out.println("---");
                     }
                 }
             }
         }
-        byte mxd = (byte) (100 - mxa - mxb - mxc);
+        long mxd = 100 - mxa - mxb - mxc;
         System.out.println(mx);
         System.out.println(mxa + " " + mxb + " " + mxc + " " + mxd);
-        BigInteger res = valueOf(2).pow(mxa);
-        res = res.multiply(valueOf(3).pow(mxb));
-        res = res.multiply(valueOf(5).pow(mxc));
-        res = res.multiply(valueOf(7).pow(mxd));
-        System.out.println(res);
+        System.out.println(getNum(mxa, mxb, mxc, mxd));
     }
 
-    private long find(int a, int b, int c, int d, LinkedHashMap<Long, Integer> current, ArrayList<Long> path) {
-        return find((byte)a, (byte)b, (byte)c, (byte)d, current, path);
+    private BigInteger getNum(long mxa, long mxb, long mxc, long mxd) {
+        BigInteger res = valueOf(2).pow((int) mxa);
+        res = res.multiply(valueOf(3).pow((int) mxb));
+        res = res.multiply(valueOf(5).pow((int) mxc));
+        res = res.multiply(valueOf(7).pow((int) mxd));
+        return res;
     }
 
     private Map<Long, Long> s = new HashMap<Long, Long>();
     private Map<Long, Boolean> cycle = new HashMap<Long, Boolean>();
     
-    private long find(byte a, byte b, byte c, byte d, LinkedHashMap<Long, Integer> current, ArrayList<Long> path) {
+    private long find(long a, long b, long c, long d, LinkedHashMap<Long, Integer> current, ArrayList<Long> path) {
         long state = getState(a, b, c, d);
         Long r = s.get(state);
         if (r == null) {
 
             Integer ind = current.get(state);
             if (ind != null) {
+//                System.out.println("Cycle found");
                 long cycleLength = current.size() - ind;
                 for (int i = ind; i < current.size(); ++i) {
                     Long st = path.get(i);
@@ -118,11 +125,11 @@ public class Task_14 implements ITask {
                     || c == 0 && b == 0 && d == 0) {
                 r = 0L;
             } else {
-                long as = a*(a-1) * aa + a*b*ab + a*c*ac * a*d*ad;
-                long bs = b*a * ba + b*(b-1)*bb + b*c*bc * b*d*bd;
-                long cs = c*a * ca + c*b*cb + c*(c-1)*cc * c*d*cd;
-                long ds = d*a * da + d*b*db + d*c*dc * d*(d-1)*dd;
-
+                long as = a * ((a-1) * aa   + b*ab      + c*ac      + d*ad);
+                long bs = b * (a * ba       + (b-1)*bb  + c*bc      + d*bd);
+                long cs = c * (a * ca       + b*cb      + (c-1)*cc  + d*cd);
+                long ds = d * (a * da       + b*db      + c*dc      + (d-1)*dd);
+                
                 List<LongIntPair> all = rate(as, bs, cs, ds);
                 int i = 0;
                 while (getCnt(all.get(i).b, a, b, c, d) == 0) {
@@ -147,10 +154,30 @@ public class Task_14 implements ITask {
                     LongIntPair sm = all.get(j);
                     if (sm.a == mx) {
                         switch (sm.b) {
-                            case 1: a++; break;
-                            case 2: b++; break;
-                            case 3: c++; break;
-                            case 4: d++; break;
+                            case 1:
+                                a++;
+                                if (a == 255) {
+                                    System.out.println("danger a");
+                                }
+                                break; 
+                            case 2:
+                                b++;
+                                if (b == 255) {
+                                    System.out.println("danger b" );
+                                }
+                                break; 
+                            case 3:
+                                c++;
+                                if (c == 255) {
+                                    System.out.println("danger c");
+                                }
+                                break; 
+                            case 4:
+                                d++;
+                                if (d == 255) {
+                                    System.out.println("danger d");
+                                }
+                                break; 
                         }
                     }
                 }
@@ -161,9 +188,12 @@ public class Task_14 implements ITask {
                 path.remove(path.size() - 1);
                 
                 if (cycle.containsKey(state)) {
-                    return r;
+                    return s.get(state);
                 }
                 
+                if (s.containsKey(state)) {
+                    System.out.println("STRANGE");
+                }
                 r++;
             }
             s.put(state, r);
@@ -173,17 +203,20 @@ public class Task_14 implements ITask {
     }
 
     private long getState(long a, long b, long c, long d) {
-        return a + (b<<16L) + (c<<32L) + (d<<48L);
+        return a + (b<<15L) + (c<<30L) + (d<<45L);
     }
 
-    private int getCnt(int i, int a, int b, int c, int d) {
-        switch (i) {
-            case 1: return a;
-            case 2: return b;
-            case 3: return c;
-            case 4: return d;
+    private long getCnt(int i, long a, long b, long c, long d) {
+        if (i == 1) {
+            return a;
+        } else if (i == 2) {
+            return b;
+        } else if (i == 3) {
+            return c;
+        } else if (i == 4) {
+            return d;
         }
-        return 0;
+        throw new IllegalStateException("ouch");
     }
 
     private List<LongIntPair> rate(long as, long bs, long cs, long ds) {
