@@ -1,6 +1,8 @@
 package utils;
 
 import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,5 +36,22 @@ public class FileUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void copy(File oldFile, File newFile) throws IOException {
+        byte buf[] = new byte[16384];
+
+        FileInputStream inFile = new FileInputStream(oldFile);
+        FileOutputStream outFile = new FileOutputStream(newFile);
+        int len = 0;
+        while ((len = inFile.read(buf)) > 0) {
+            outFile.write(buf, 0, len);
+        }
+        inFile.close();
+        outFile.close();
+    }
+
+    public static boolean move(File oldFile, File newFile) throws IOException {
+        return oldFile.renameTo(newFile);
     }
 }
