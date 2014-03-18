@@ -1,12 +1,18 @@
 package tasks;
 
+import java.io.IOException;
+
 public class Tester {
     private static long begTime;
 
     public static void test(ITask task) {
         begTime = System.currentTimeMillis();
 
-        task.solving();
+        try {
+            task.solving();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         System.out.println("\nTask completed in: " + timeElapsed() + " ms.");
     }

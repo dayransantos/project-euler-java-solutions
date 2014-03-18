@@ -1,5 +1,7 @@
 package tasks;
 
+import java.io.IOException;
+
 public interface ITask {
-    public void solving();
+    public void solving() throws Exception;
 }

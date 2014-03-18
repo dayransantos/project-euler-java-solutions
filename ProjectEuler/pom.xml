@@ -7,7 +7,7 @@
     <groupId>org.pe</groupId>
     <artifactId>project-euler-solutions</artifactId>
     <version>1.0</version>
-    
+
     <name>Project Euler</name>
 
     <repositories>
@@ -15,6 +15,10 @@
             <id>obiba</id>
             <name>some random repo</name>
             <url>http://maven.obiba.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>javacv</id>
+            <url>http://maven2.javacv.googlecode.com/git/</url>
         </repository>
     </repositories>
 
@@ -27,29 +31,43 @@
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
-                        <goals><goal>add-source</goal></goals>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
                         <configuration>
                             <sources>
                                 <source>src/main/euler</source>
                                 <source>src/main/scala</source>
+                                <source>src/main/opener2014</source>
                             </sources>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
         <dependency>
-          <groupId>org.jscience</groupId>
-          <artifactId>jscience</artifactId>
-          <version>4.3.1</version>
+            <groupId>com.googlecode.javacv</groupId>
+            <artifactId>javacv</artifactId>
+            <version>0.7</version>
         </dependency>
         <dependency>
-          <groupId>org.apfloat</groupId>
-          <artifactId>apfloat</artifactId>
-          <version>1.6.3</version>
+            <groupId>com.googlecode.javacv</groupId>
+            <artifactId>javacv</artifactId>
+            <classifier>windows-x86_64</classifier>
+            <version>0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jscience</groupId>
+            <artifactId>jscience</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apfloat</groupId>
+            <artifactId>apfloat</artifactId>
+            <version>1.6.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
