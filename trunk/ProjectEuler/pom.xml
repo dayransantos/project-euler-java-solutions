@@ -49,17 +49,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.googlecode.javacv</groupId>
-            <artifactId>javacv</artifactId>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.javacv</groupId>
-            <artifactId>javacv</artifactId>
-            <classifier>windows-x86_64</classifier>
-            <version>0.7</version>
-        </dependency>
-        <dependency>
             <groupId>org.jscience</groupId>
             <artifactId>jscience</artifactId>
             <version>4.3.1</version>
