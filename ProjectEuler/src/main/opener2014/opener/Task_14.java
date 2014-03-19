@@ -125,11 +125,15 @@ public class Task_14 implements ITask {
                     || c == 0 && b == 0 && d == 0) {
                 r = 0L;
             } else {
-                long as = a * ((a-1) * aa   + b*ab      + c*ac      + d*ad);
-                long bs = b * (a * ba       + (b-1)*bb  + c*bc      + d*bd);
-                long cs = c * (a * ca       + b*cb      + (c-1)*cc  + d*cd);
-                long ds = d * (a * da       + b*db      + c*dc      + (d-1)*dd);
-                
+                long as = 1 * ((a-1) * aa   + b*ab      + c*ac      + d*ad);
+                long bs = 1 * (a * ba       + (b-1)*bb  + c*bc      + d*bd);
+                long cs = 1 * (a * ca       + b*cb      + (c-1)*cc  + d*cd);
+                long ds = 1 * (a * da       + b*db      + c*dc      + (d-1)*dd);
+                if (a == 0) as = 0;
+                if (b == 0) bs = 0;
+                if (c == 0) cs = 0;
+                if (d == 0) ds = 0;
+
                 List<LongIntPair> all = rate(as, bs, cs, ds);
                 int i = 0;
                 while (getCnt(all.get(i).b, a, b, c, d) == 0) {
@@ -155,29 +159,29 @@ public class Task_14 implements ITask {
                     if (sm.a == mx) {
                         switch (sm.b) {
                             case 1:
-                                a++;
                                 if (a == 255) {
                                     System.out.println("danger a");
                                 }
-                                break; 
+                                a++;
+                                break;
                             case 2:
-                                b++;
                                 if (b == 255) {
                                     System.out.println("danger b" );
                                 }
-                                break; 
+                                b++;
+                                break;
                             case 3:
-                                c++;
                                 if (c == 255) {
                                     System.out.println("danger c");
                                 }
-                                break; 
+                                c++;
+                                break;
                             case 4:
-                                d++;
                                 if (d == 255) {
                                     System.out.println("danger d");
                                 }
-                                break; 
+                                d++;
+                                break;
                         }
                     }
                 }
