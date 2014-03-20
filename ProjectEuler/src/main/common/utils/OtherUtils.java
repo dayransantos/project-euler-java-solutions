@@ -188,10 +188,8 @@ public class OtherUtils {
 
     public static String toIndentedString(int n) {
         if (n < 10) {
-            return "   " + n;
-        } else if (n < 100) {
             return "  " + n;
-        } else if (n < 1000) {
+        } else if (n < 100) {
             return " " + n;
         } else {
             return "" + n;
