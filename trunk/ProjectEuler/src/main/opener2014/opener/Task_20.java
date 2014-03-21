@@ -7,10 +7,8 @@ import utils.log.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.math.BigInteger;
+import java.util.*;
 
 //Answer :
 public class Task_20 implements ITask {
@@ -21,17 +19,25 @@ public class Task_20 implements ITask {
     }
 
     public void solving() throws IOException {
+
         int group = 0;
         Map<String, Integer> g = new HashMap<String, Integer>();
         Map<Integer, Set<String>> all = new HashMap<Integer, Set<String>>();
         for (int i = 1; i <= 5; ++i) {
-            for (String line : FileUtils.readLines("d:\\6-task\\list" + i)) {
+            String listName = "d:\\1-task-lists\\list" + i;
+            if (!new File(listName).exists()) {
+                continue;
+            }
+            for (String line : FileUtils.readLines(listName)) {
 //            for (String line : FileUtils.readLines("d:\\6-task\\sample" + i)) {
                 Set<String> members = new HashSet<String>();
                 int newGri = group++;
 
                 String[] ss = line.split(";");
                 for (String s : ss) {
+//                    if (!is.contains(s)) {
+//                        continue;
+//                    }
                     Integer gri = g.get(s);
                     if (gri != null) {
                         Set<String> oldGroup = all.remove(gri);
@@ -47,75 +53,36 @@ public class Task_20 implements ITask {
                     g.put(m, newGri);
                 }
 
-                all.put(newGri, members);
+                if (!members.isEmpty()) {
+                    all.put(newGri, members);
+                }
             }
         }
 
         System.out.println(all.size());
 
-//        for (Set<String> k : all.values()) {
-//            long sum = 0;
-//            if (k.size() == 3) {
-//                for (String s : k) {
-//                    sum += Long.parseLong(s, 36);
-//                }
-//                System.out.println(k);
-//                System.out.println(sum);
-//                System.out.println(Long.toString(sum, 36).toUpperCase());
-//            }
-//        }
-        group = 999;
         for (Set<String> k : all.values()) {
-            ++group;
-            File groupDir = new File("D:\\7\\" + k.size() + "-" + group + "\\");
-            groupDir.mkdirs();
-            for (String s : k) {
-                FileUtils.copy(new File("D:\\Downloads\\task\\" + s + ".mov"), new File(groupDir,  s + ".mov"));
+            if (k.size() == 3) {
+                BigInteger p = BigInteger.ONE;
+                for (String sn : k) {
+                    p = p.multiply(new BigInteger(sn, 36));
+                }
+
+                System.out.println(p.toString(36));
             }
         }
+    }
 
-//        try {
-//            int gr = 1000;
-//            String line;
-//            while ((line = in.readLine()) != null) {
-//                File groupDir = new File("D:\\7\\" + gr++);
-//                groupDir.mkdirs();
-//
-//                String[] names = line.split(";");
-//                for (String name : names) {
-//                    File f = new File("D:\\Downloads\\task\\", new File(name).getName());
-//                    if (!f.exists()) {
-//                        throw new IllegalStateException();
-//                    }
-//
-//                    FileUtils.copy(f, new File(groupDir, f.getName()));
-//                }
-//            }
-//        } finally {
-//            in.close();
-//        }
+    public void solving1() throws Exception {
+        String s = "16KRXKH3I.mov CKHBWPBMT.mov QIQUK3L4B.mov ";
+        s = s.replaceAll("\\.mov", "");
 
+        String ss[] = s.split(" ");
+        BigInteger p = BigInteger.ONE;
+        for (String sn : ss) {
+            p = p.multiply(new BigInteger(sn, 36));
+        }
 
-//        BufferedReader in = new BufferedReader(new FileReader("D:\\result_list.txt"));
-//        try {
-//            int gr = 1000;
-//            String line;
-//            while ((line = in.readLine()) != null) {
-//                File groupDir = new File("D:\\7\\" + gr++);
-//                groupDir.mkdirs();
-//
-//                String[] names = line.split(";");
-//                for (String name : names) {
-//                    File f = new File("D:\\Downloads\\task\\", new File(name).getName());
-//                    if (!f.exists()) {
-//                        throw new IllegalStateException();
-//                    }
-//
-//                    FileUtils.copy(f, new File(groupDir, f.getName()));
-//                }
-//            }
-//        } finally {
-//            in.close();
-//        }
+        System.out.println(p.toString(36));
     }
 }
