@@ -15,7 +15,7 @@ public class Task_22 implements ITask {
         Logger.close();
     }
 
-    int n = 13;
+    int n = 15;
     byte[] ds = new byte[n];
     int curr = 0;
 
