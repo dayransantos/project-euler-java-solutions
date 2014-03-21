@@ -54,4 +54,21 @@ public class FileUtils {
     public static boolean move(File oldFile, File newFile) throws IOException {
         return oldFile.renameTo(newFile);
     }
+
+    public static void cleanDirectory(String s) throws IOException {
+        cleanDirectory(new File(s));
+    }
+
+    private static void cleanDirectory(File dir) throws IOException {
+        if (dir.exists() && dir.isDirectory()) {
+            for (File child : dir.listFiles()) {
+                if (child.isDirectory()) {
+                    cleanDirectory(child);
+                }
+                if (!child.delete()) {
+                    throw new IOException("can't delete: " + child);
+                }
+            }
+        }
+    }
 }
