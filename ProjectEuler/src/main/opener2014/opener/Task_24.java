@@ -36,11 +36,6 @@ public class Task_24 implements ITask {
             "YCWHEYYYGQWCIBPLQWMXEUUTEMABCENCGANXYZFYXRYKBCRHJIICUYTAKEHDIXXIJDJYSGNLKXANVDZAUUIQARKFVODMZXUKCZNQSEFUSHYHGZUGMUZZXRZBLDFWIXVIQVOZLDPAQRXVUCAURTPCCQQGVIJCVQGLPUBLMYRGTQLHSQJBUZAWSBXIKBNTXPYZGTCWHSKTUIQDK"
     };
 
-//    String[] all = new String[]{
-//            "ABBA",
-//            "BBKK",
-//            "KKK"
-//    };
     int n = all.length;
 
     int dist[][] = new int[n][n];
