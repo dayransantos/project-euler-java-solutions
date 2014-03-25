@@ -42,24 +42,20 @@ public class Task_31_2 implements ITask {
             System.out.print(i + " ");
             group[grcnt++] = i;
         }
+        processCurrentGroup();
+        System.out.println();
 
         BigInteger lcm = BigInteger.ONE;
         for (int n = 1; n <= 256; ++n) {
             double r = res[n];
             if (r < 0) {
-                double probSameSides = 0;
+                r = 0;
+                
                 int left = n == 1 ? 256 : n - 1;
                 int right = n == 256 ? 1 : n + 1;
                 for (int s = 1; s <= 6; ++s) {
-                    if (probs[left][s] == 0 || probs[right][s] == 0) {
-
-
-                        System.out.println("Fuck");
-                    }
-                    probSameSides += probs[left][s] * probs[right][s];
+                    r += estimateNormal(n, s, probs[left][s] * probs[right][s]);
                 }
-
-                r = estimateNormal(n, probSameSides);
             }
             if (ok(r)) {
                 lcm = MyMath.lcm(lcm, BigInteger.valueOf(n));
@@ -112,8 +108,8 @@ public class Task_31_2 implements ITask {
     private void process(int ind) {
         if (ind == grcnt) {
             if (countVariantScore()) {
+                ++validCount;
             }
-            ++validCount;
             return;
         }
 
