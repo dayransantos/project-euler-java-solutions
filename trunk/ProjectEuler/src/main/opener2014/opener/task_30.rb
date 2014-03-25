@@ -1,5 +1,6 @@
 require 'digest/sha2';
 require 'base64';
+require 'prime';
 
 class Object;
   if !method_defined?(:-@);
@@ -137,7 +138,11 @@ end;
 # pln regexp12      
 # pln "12345678-12345678-12345678-12345678-12345678-12345678" =~ regexp12
 
+primes = Prime.first 7000
+
 def f(x);
+  pln x
+
   v=%w{0NXZnlGZ4VGauITM1EESTpjO0NXZnlGR 5292d91f914a3ed4 eb1496ac};
   def c(f,&block)
     ->{
@@ -220,52 +225,95 @@ def f(x);
     
     catch :^ do;
       (o[0],o[1],o[2],o[3],o[4]) = (_/%{-}).map{|_| _.to_i(16) };
-      pln v
+
       v = v.map{|arg| arg.reverse};
       
       h = "Base64.decode64('#{v[0]}')";
       
-      def p(n)
-        %r@^1?$|^(11+?)\1+$@!~'1'*n;
+      def p(n) #isprime
+        # /^1?$|^(11+?)\1+$/ !~'1'*n;
+        Prime.prime?(n)
       end;
-    
+      
       # puts  eval('"'+%<;'}46x{#'}rhc.b{#}r{#;'})b(_.432539{#/})b(_.)'ho98'*1811({#'}rhc.b{#}r{#>.r+'"')
       # _ _('"'+%<;'}46x{#'}rhc.b{#}r{#;'})b(_.432539{#/})b(_.)'ho98'*1811({#'}rhc.b{#}r{#>.r+'"');
 #       
       # puts eval(%<"#{'}e{#;]2/_,2/_-[))2(_.v(})h(_{#;)_,v(c }d{#'.r}">)
       # _ _(%<"#{'}e{#;]2/_,2/_-[))2(_.v(})h(_{#;)_,v(c }d{#'.r}">);
 
-      def c(v,_);
-        pln v._(2)
-        r = Digest::SHA512.hexdigest(v.to_s(2))[-16,16];
-        pln r
+      def c(v);
+        r = Digest::SHA512.hexdigest(v.to_s(2));
+        r = r[-16,16]
+        r
       end
-      pln v
-      pln v.[](1)
       
-      throw :^ if (c(o[0],b) != v.[](1) );
+      throw :^ if (c(o[0]) != v[1] );
       
+      pln "a[0] is correct"
+
       # puts "#{d} c(_);a=13;k=3;t=k;z=a;while a<_(%(_))&&_>z do k+=2;next if !->(_){p(_)}[k];a+=k*k;return _ if(_._=~((-//)._(t._*5))&&a==_);#{e};@_;#{e}"
       # _"#{d} c(_);a=13;k=3;t=k;z=a;while a<_(%(_))&&_>z do k+=2;next if !->(_){p(_)}[k];a+=k*k;return _ if(_._=~((-//)._(t._*5))&&a==_);#{e};@_;#{e}";
-      def c(_);a=13;k=3;t=k;z=a;while a<_(%(_))&&_>z do k+=2;next if !->(_){p(_)}[k];a+=k*k;return _ if(_._=~((-//)._(t._*5))&&a==_);end;@_;end
       
-      throw :^ if(!c o[1]);
+      def c(_);
+        pln _
+        pln _(%(_))
+        a=13;
+        k=3;
+        t=k;
+        # z=a;
+        # while a < _(%(_)) && _ > z do
+        # while _ > a && _ > z do
+        while _ > a do
+          k += 2;
+          # next if ! ->(_){p(_)}[k];
+          next if !p(k); # if k isn't prime
+          a += k*k; # a is a sum of prime squares + 13
+          return _ if(_._ =~ ((-//)._(t._*5)) && a == _);
+        end;
+        @_;
+      end
+      
+      # a = 13
+      # for pr in (Prime.first 7000).slice(2..7000)
+        # a += pr*pr
+        # if (a._ =~ ((-//)._(3._*5)))
+          # pln a.to_s(16).upcase
+        # end
+      # end
+      
+      throw :^ if (!c(o[1]));
         
-      throw :! if v[2]._(b/2)!=o[2]||_('(1..~-b)._?(&:*)./(6**b)').__!=o[3];
+      pln "a[1] is correct"
+      
+      pln v[2]._(b/2)._(16).upcase
+      pln _('(1..~-b)._?(&:*)./(6**b)').__._(16).upcase #1033193716
+        
+      throw :! if v[2]._(b/2) != o[2] || _('(1..~-b)._?(&:*)./(6**b)').__!=o[3];
 
-      # puts _('"'+'}e{#;^:c%_;)d%,]b%b0[oc%cc%(}b-~_.375{#;}e{#;%%k%%q%%==]3[)b(_._&&3>s.)b(_._&&r.)b(_._==)b(_._&&_==r*r*r;__.)s%+)s%(**_(=r;)b,_(c }d{#'.r+'"')%[%%1.0/3%,'%d.%s'%[b^(1<<5),%'5'],-~b,b,b>>3,b,-~b]
+      pln "a[2] and a[3] are correct"
+
+      puts _('"'+'}e{#;^:c%_;)d%,]b%b0[oc%cc%(}b-~_.375{#;}e{#;%%k%%q%%==]3[)b(_._&&3>s.)b(_._&&r.)b(_._==)b(_._&&_==r*r*r;__.)s%+)s%(**_(=r;)b,_(c }d{#'.r+'"')%[%%1.0/3%,'%d.%s'%[b^(1<<5),%'5'],-~b,b,b>>3,b,-~b]
       # _(_('"'+'}e{#;^:c%_;)d%,]b%b0[oc%cc%(}b-~_.375{#;}e{#;%%k%%q%%==]3[)b(_._&&3>s.)b(_._&&r.)b(_._==)b(_._&&_==r*r*r;__.)s%+)s%(**_(=r;)b,_(c }d{#'.r+'"')%[%%1.0/3%,'%d.%s'%[b^(1<<5),%'5'],-~b,b,b>>3,b,-~b]);
-      def c(_,b);r=(_**(1.0/3)+0.5).__;r*r*r==_&&_._(b)==_._(b).r&&_._(b).s>3&&_._(b)[3]==%q%k%;end;if(!c o[0b100],32);_!:^;end
+      
+      for a in (1 .. (0xFFFFFFFF**(1.0/3)+0.5).__)
+        check = a*a*a
+        pln check._(16).upcase if check._(b) == check._(b).r && check._(b).s > 3 && check._(b)[3] == %q%k%
+      end
+
+      def c(_,b);
+        r = (_**(1.0/3)+0.5).__;
+        r*r*r == _ && _._(b) == _._(b).r && _._(b).s > 3 && _._(b)[3] == %q%k%;
+      end;
+      
+      throw :^ if !c(o[4],32)
 
       !!b;
     end;
   end
 end
-puts "1st call"
-f("FFFFFFFF-12345678-12345678-12345678-12345678")
 
-puts "2nd call"
-f("12312323-12312323-56745672-12345678-12345678")
-
+if (f("1FD49D4B-3CFED401-CA6941BE-3D9548F4-4CFA3CC1"))
+  pln "correct"
+end
 __END__
 COBJAlCPCTAwBaBkBmCGCEBTBmBABiBTBtCNBVBgBZAxBRBRBfBgCICCBbCdCfChBTBeAgBBAyBFAyBwBFAxByDMBABtAzBxBwBAAgBxBuAxBABFBCBtBvCVBHBwBxByAgBvAgByAsAmCLBHAtBKCTByBnBpBHCLDwDfBxCGBwDgDiAgCGDmDoDqDsAoBrApDuBnDzBrBpBpEBEDBHBtCECBBtCLBGBrBGBxCOEZEFDjCMEHDoBuBHCGBKAwBLBvAoCMAoCWAtCGEoApFCBGDsCTEWEEBrBJCGAoEMEOCTBrAiAjFQCVAiCVEPCUBrFZAgBrCVBnAnCFBxCMCACHBwENBrFhFjFlBrEOAuCIBtCKBtFpBxCKDzEzAwAtCWAwBpBnEMBtAsBuEPExBuAuAqBuBIBJEsEPBtBJBuEsBLGFBtAgBGEzBtFeDxBtBHFeBAAsAtBBEUAnBpAuCMCHBrCLAuCLCMCKCBCIBHCRBJBAAyAgBtEDAgBuBJGKGMEPCKBJAwBHGPGRGTGVAwHTHQBKAoGLGNCTHYGSGUGWCTGYGaEtGdGfGhGjEYGmBnCKAsBtEVDwBHCKHZHmAwFeAxBIBIFNHfBrAsCJGOAoCJGRCJIHEPFKCJGbGFBrHtAtFdIDBrHxGFAwGpGGBpFDIKBICRAvINENAsCHEPCQHVHXAoCHGRCHIXCTIzHRHiHkHaHnHpIbCWGeGgAtGiIDGlFeCQAsETHvCQJEIHFeAyAsEzAoIqAzApIoDxCMBJBrAnCLBxCEByAnEkAgCMAuCSFcDrIOIYGvGxCLJjILFOIwIyJAExJDAqJFHbKOKMIxHjJCJdKUFQBJCHJPIdJSIgDxIiJXJZICDxJcKSJeBnAxGpIOKNKYKRKTHnFKKeHrCWKgEzKiBHKkKsAsBAEUApFeETBHECEEDhElAuDwBJAgCPAsCAAsBvLIBJBnCPAuBvCEEcCLKjJqAuCFBtCIAgAmBGGwGyLfFOEPFSCTENAuCHCKBwArEyAwAmIqAoAyArJlApApLjCACKCVFTAnAnMXFQGJGGAuAuGDEVFWBnBrGJKvKXIzHWKQKaHnJIMnISKyJGLBKfIeLHLJJYJaIDKpKzIIMmIvMoKPKZKqKbMuNLMwMsHcKcLCGcLENBHvNDKmJbNUFeAwCQHJAsAxBpAsGHEULIAoMCFdAgFTCPDfCBDjAhFTKCNhAyBvBxBxBvBDAwBwCVBrOBAgNhAzBBBvDOBBBwBvOLBLAoBGFTCAFXBHOONhBtDdBFOSCVObCTOdOnDeLREXLSAiApOsEEHHCRAmAmCMKEAoGOBnKALkLmAsFFBMBpBJBGPJCLCLHvFGCMGJAtCMPLETPPCGBxNwIDCRLWPOAoCDHeCTPYGjAuCBCGLkCNDhBwFoFlCNCEBxGCAtGHPaBLPLBvBtCMBvCAOwBrBLBGAhBwCHBHCBHeAoBwHSJHNNGQHlNQQWQYJKAoQcJMNVBwGZJPBwIeOLIDEEKlBwKnBHKpQkFeBuGMGuPRDqKALXAgCDPaAhPLFjCKCHCPHXPiBJAoCBPLCGRLBGAqOwBxCZAlAlHLHNCHHQDwRgQpLUJzAuCAENQNAuBxDdCACTCUCJAsBxCUJtJvRSAoBxIQAsAlPHGxFTCJCVGuLxCLCRCFLOOxRRRqCTCBFFAlBKBKAsEdCBOeCRGJAlBISeBGAvPOBGCLCIEaPDPWRVEeSqRFSkMZPaSqCBLRFKFGAtEADwPqPsCEPuDTPxBwPzQBBnBMBrKHBrCBKjAhQQCNChQBKJTXCLCBCSRcHVBAAwArEMQgKOMqQiIGQeTrQZJLJGQmHqNYQpJSQrDxQtBnJYQvNeQdEsFeKWNTNPLAKdNAKhNbHxKtAyNmGFURKxNUIYUVLDLFIfUYJfNkEUPBEwBnBxIPSyPPLrCIApPBFKCWAoFNAvAvMTIdFNDwVHQiAvEMFBFPExTXAqBrJGCGJqJPEIJSCGHvCGHxEzGaBKJgMhSJAoBnBNAtBSFTVDUeMpJBMxTxMvUfUTNVMzUjNaIhHxNEQwNHKrVgKtAzIoMfAuIuVPISVSVUKbVWBrVYIeVbIDVdRAAsBnAqSKIBMfSKCSEUHATkBxIoVLLvQLCKApAqBxSPCTBEFXWvAnAtAnMSBHBvAsQYSHCQBCBARTSKAxAzAyBEAyAyAwDaXRBDBDBBDMBBAwBEXcAzBEAwBBAxBCBBBABEBpAvAlCUBFCUVHRxFaTXFdAuBrXyFZYCHODfPWAtPYRKPOAnAxBDBzCHBuCJBABvCHCMBCAnYCEyAtGNYbYeSRSTLIMCDeNuSZDfFTOLAgAqAoCQOwIzJcCBCLBrBtOZAtReAlApBLJcBrAoFTVOJZWSGRWUHnWWWYVaVcHxVgAzRCFXBGCQEqAhYtOwFTWxOfCTZiAiBHRiJDIiZJAlAkRnBzJzAsAqCEBHWfCEGuRuQLYEYJJjYCFDTXSRBnGHTYSSCFPOFdOxAkOwBzEwPLCKEhGAJtPLTjTlOwHUMOBEAxWgBKCOBEEDGaILAxVLIqBBApRlFcQPBqQSHXBnCBYCAhbGPaPbBGByCECHMGbDUtQFTECGCCOHPDJCaNNmCHKsbaBnUbIwBnWMbgLMApRTBrXsPnFXYCYEYAIuIPNMTuVvMtQWbvUSNIUhNXIcWDKjWFNdNGNfaNAxIlUeMrVzcEUWLGUmLKNlIoDfDhBvCZCUFTXMBAbZAuCNCIQIJtMbcgMdAwMfMhCVAuFTAzDZBDYGTyHiVtUAVwQXTzTvUOQlQnLDUFEzUHDgcJUMcLdJFeBBAsWMCVCHFTXWBFdAHfWRKYWTVVVXLDVZEzWaDxWcBnEzBEAsXqCVXNCUBHCYCObrFZYFMWBHCABJMCcbCVAoAnFTCObZCVXFZmRnLtVdAlCKBMBqAxBLAkCUBqJjAxArBLApBoehAkBMAhCWYOAnAqVdLSLIFceMAiAnArSlBHMaBABCCQCTAjMaCKCABvAuBufICVCKfIfDFXBuMEBAXSBBAzBFfIAvfVMEApAnFkBFBEesAxakAxAofIfKfMfOfQfSAjBKAuCKArAnezQNexSlMCMaBxfTBpAyAvIPgMBrTJMSAyMECOAoFXRqYDAjBHApIPgVDlCVBwfrfzFVBKQNTcBqNyAoEvbbQEGNAhBJeBDwJjXGFRYpCVDkRrEYBJXRBHPlAzHXBJCDBHCSBJGlCPCACBQAHLBIZrRrUzAmWXKCQSRIArBJAyEqBxCQEmNyAgAhMACTCIRrFeCDGkhhCDAqhOaaCMCNCKEIIdgpYABJVCVEVGYbKABrAqawhbGYJqZgZkDfTWZjWxZmBrgngpAhDlbbNlgmQQhoePUbYfAvAyApgvbbUbCUFZeMaIMgYdVHOZLvRaAuItBCAqGSfhVHidKdbhKjENeyfAgIfTBqPQAlIiApBwAlAsBpBuAlBuAwBnCHBvAlBvjlgWBuIcAuAzXbfTCVgJgaReCDReCJReBJBJBpAzBnApfWYAPBAzBKGzkJMEBrPBIFkQiJBJkVYCVAkECKAqkcCKLITXApCLAlArkiAlAojJZJBJkfkJJZgqAggggigAgCXFSKReAxAuAwAvAzjcAnAlBwAuAlCLlKBnBuefavFDAlAnBBGtImRBlbSdZYRBGFBuIoBHAhAhEpevLS
