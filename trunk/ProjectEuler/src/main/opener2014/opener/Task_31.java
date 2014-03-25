@@ -42,6 +42,8 @@ public class Task_31 implements ITask {
             System.out.print(i + " ");
             group[grcnt++] = i;
         }
+        processCurrentGroup();
+        System.out.println();
 
         BigInteger lcm = BigInteger.ONE;
         for (int n = 1; n <= 256; ++n) {
@@ -52,8 +54,6 @@ public class Task_31 implements ITask {
                 int right = n == 256 ? 1 : n + 1;
                 for (int s = 1; s <= 6; ++s) {
                     if (probs[left][s] == 0 || probs[right][s] == 0) {
-                        
-                        
                         System.out.println("Fuck");
                     }
                     probSameSides += probs[left][s] * probs[right][s];
@@ -67,32 +67,6 @@ public class Task_31 implements ITask {
         }
 
         System.out.println(lcm);
-    }
-
-    private double estimateNormal(int n, double probSameSides) {
-        double probDiffSides = 1 - probSameSides;
-        double r = 0;
-        if (n % 2 == 1) {
-            for (int s = 1; s <= 6; ++s) {
-                r += probDiffSides * s;
-                r += probSameSides * (
-                        0.5 * s + 0.5 * (
-                                (2 + 3 + 4 + 5 + 6 + 7) * 1.0 / 6.0
-                        )
-                );
-            }
-        } else {
-            // чётный
-            for (int s = 1; s <= 6; ++s) {
-                r += (probDiffSides * (n % 5 + 1));
-                r += probSameSides * (
-                        0.5 * s + 0.5 * (
-                                (1 + 2 + 3 + 4 + 5 + 6) * 1.0 / 6.0
-                        )
-                );
-            }
-        }
-        return r;
     }
 
     private void processCurrentGroup() {
@@ -138,8 +112,8 @@ public class Task_31 implements ITask {
     private void process(int ind) {
         if (ind == grcnt) {
             if (countVariantScore()) {
+                ++validCount;
             }
-            ++validCount;
             return;
         }
 
@@ -159,11 +133,14 @@ public class Task_31 implements ITask {
         }
 
         for (int i = 0; i < grcnt; ++i) {
-            if (i == 0 || i == grcnt - 1) {
-                //крайние непростые
-                scores[i] += estimateEdge(group[i], moves[i]);
+            //крайние непростые
+            if (i == 0) {
+                scores[i] += estimateEdge(group[i], moves[i], moves[i + 1]);
+            } else if (i == grcnt - 1) {
+                scores[i] += estimateEdge(group[i], moves[i], moves[i - 1]);
             } else {
                 scores[i] += estimateInner(group[i], moves[i - 1], moves[i], moves[i + 1]);
+
             }
         }
         edgeMovesProbs[0][moves[0]]++;
@@ -172,7 +149,15 @@ public class Task_31 implements ITask {
     }
 
     private double estimateInner(int n, int prev, int self, int next) {
-        if (prev != next) {
+        if (prev == next && prev == self) {
+            if (n % 2 == 1) {
+                if (isprime[n]) {
+                    return self;
+                }
+                return 0.5 * self + 0.5 * (2 + 3 + 4 + 5 + 6 + 7) / 6.0;
+            }
+            return 0.5 * self + 0.5 * (1 + 2 + 3 + 4 + 5 + 6) / 6.0;
+        } else {
             if (n % 2 == 1) {
                 if (isprime[n] && self != n % 5 + 1) {
                     return -1;
@@ -181,22 +166,42 @@ public class Task_31 implements ITask {
             } else {
                 return n % 5 + 1;
             }
-        } else {
-            if (n % 2 == 1) {
-                if (isprime[n]) {
-                    return self;
-                }
-                return 0.5 * self + 0.5 * (2 + 3 + 4 + 5 + 6 + 7) / 6.0;
-            }
-            return 0.5 * self + 0.5 * (1 + 2 + 3 + 4 + 5 + 6) / 6.0;
         }
     }
 
-    private double estimateEdge(int n, int s) {
-        if (n % 2 == 1) {
-            return 5.0 / 6.0 * s + 1.0 / 6.0 * (0.5 * s + 0.5 * (2 + 3 + 4 + 5 + 6 + 7) * 1.0 / 6.0);
+    private double estimateEdge(int n, int self, int next) {
+        if (self != next) {
+            return estimateNormal(n, self, 0);
         } else {
-            return 5.0 / 6.0 * (n % 5 + 1) + 1.0 / 6.0 * (0.5 * s + 0.5 * (1 + 2 + 3 + 4 + 5 + 6) * 1.0 / 6.0);
+            return estimateNormal(n, self, 1.0 / 6.0);
+
+        }
+    }
+
+    private double estimateNormal(int n, double probSameSides) {
+        double r = 0;
+        for (int s = 1; s <= 6; ++s) {
+            r += estimateNormal(n, s, probSameSides);
+        }
+        return r;
+    }
+
+    private double estimateNormal(int n, int s, double probSameSides) {
+        double probDiffSides = 1 - probSameSides;
+        if (n % 2 == 1) {
+            return probDiffSides * s +
+                   probSameSides * (
+                           0.5 * s + 0.5 * (
+                                   (2 + 3 + 4 + 5 + 6 + 7) * 1.0 / 6.0
+                           )
+                   );
+        } else {
+            return (probDiffSides * (n % 5 + 1)) +
+                   probSameSides * (
+                           0.5 * s + 0.5 * (
+                                   (1 + 2 + 3 + 4 + 5 + 6) * 1.0 / 6.0
+                           )
+                   );
         }
     }
 
