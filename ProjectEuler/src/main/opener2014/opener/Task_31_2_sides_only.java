@@ -12,10 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 //Answer :
-public class Task_31 implements ITask {
+public class Task_31_2_sides_only implements ITask {
     public static void main(String[] args) {
         Logger.init("default.log");
-        Tester.test(new Task_31());
+        Tester.test(new Task_31_2_sides_only());
         Logger.close();
     }
 
@@ -53,8 +53,12 @@ public class Task_31 implements ITask {
 
                 int left = n == 1 ? 256 : n - 1;
                 int right = n == 256 ? 1 : n + 1;
+                double prob = 1;
                 for (int s = 1; s <= 6; ++s) {
-                    r += estimateNormal(n, s, probs[left][s] * probs[right][s]);
+                    prob *= probs[left][s] * probs[right][s];
+                }
+                for (int s = 1; s <= 6; ++s) {
+                    r += estimateNormal(n, s, prob);
                 }
             }
             if (ok(r)) {
@@ -150,7 +154,7 @@ public class Task_31 implements ITask {
     private double estimateInner(int n, int prev, int self, int next) {
         int n51 = n % 5 + 1;
         if (isprime[n]) {
-            if (prev == next && prev == self) {
+            if (prev == next) {
                 // 0.5 => self
                 // 0.5 => 
                 //    n==2 => one of {1..6}
@@ -177,7 +181,7 @@ public class Task_31 implements ITask {
                 return -1;
             }
         } else {
-            if (prev == next && prev == self) {
+            if (prev == next) {
                 return estimateNormal(n, self, 1);
             } else {
                 return n % 2 == 1 ? self : n51;
@@ -186,20 +190,7 @@ public class Task_31 implements ITask {
     }
 
     private double estimateEdge(int n, int self, int next) {
-        if (self != next) {
-            return estimateNormal(n, self, 0);
-        } else {
-            return estimateNormal(n, self, 1.0 / 6.0);
-
-        }
-    }
-
-    private double estimateNormal(int n, double probSameSides) {
-        double r = 0;
-        for (int s = 1; s <= 6; ++s) {
-            r += estimateNormal(n, s, probSameSides);
-        }
-        return r;
+        return estimateNormal(n, self, 1.0 / 6.0);
     }
 
     private double estimateNormal(int n, int s, double probSameSides) {
