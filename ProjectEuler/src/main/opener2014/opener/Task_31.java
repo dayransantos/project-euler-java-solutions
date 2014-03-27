@@ -6,10 +6,15 @@ import utils.MyMath;
 import utils.OtherUtils;
 import utils.log.Logger;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.ZERO;
 
 //Answer :
 public class Task_31 implements ITask {
@@ -23,14 +28,20 @@ public class Task_31 implements ITask {
     boolean isprime[] = new boolean[258];
     int group[] = new int[15];
     int grcnt = 0;
-    double probs[][] = new double[257][7];
-    double res[] = new double[257];
+
+    MathContext mc = new MathContext(100);
+
+    BigDecimal b12 = divide(bd(1), bd(2));
+    BigDecimal b16 = divide(bd(1), bd(6));
+    BigDecimal sum27div6 = divide(bd(2 + 3 + 4 + 5 + 6 + 7), bd(6));
+    BigDecimal sum16div6 = divide(bd(1 + 2 + 3 + 4 + 5 + 6), bd(6));
+    BigDecimal moveProb[][] = new BigDecimal[257][7];
+    BigDecimal res[] = new BigDecimal[257];
 
     public void solving() {
-        Arrays.fill(res, -1);
         for (int i = 1; i <= 256; ++i) {
             for (int s = 1; s <= 6; ++s) {
-                probs[i][s] = 1.0 / 6.0;
+                moveProb[i][s] = b16;
             }
 
             isprime[i] = primes.contains(i);
@@ -47,17 +58,26 @@ public class Task_31 implements ITask {
 
         BigInteger lcm = BigInteger.ONE;
         for (int n = 1; n <= 256; ++n) {
-            double r = res[n];
-            if (r < 0) {
-                r = 0;
+            BigDecimal r = res[n];
+            if (r == null) {
+                r = ZERO;
 
                 int left = n == 1 ? 256 : n - 1;
                 int right = n == 256 ? 1 : n + 1;
+                BigDecimal prob = ZERO;
                 for (int s = 1; s <= 6; ++s) {
-                    r += estimateNormal(n, s, probs[left][s] * probs[right][s]);
+                    prob = prob.add(moveProb[left][s].multiply(moveProb[right][s]));
+                }
+                for (int s = 1; s <= 6; ++s) {
+                    r = r.add(estimateNormal(n, s, prob).multiply(b16));
                 }
             }
-            if (ok(r)) {
+
+            String fr = OtherUtils.formatDouble(r.doubleValue(), 10);
+            int dotInd = fr.indexOf(".");
+            char d = fr.charAt(dotInd + 2);
+            System.out.println(n + ": " + fr + ": " + (d == '1'));
+            if (d == '1') {
                 lcm = MyMath.lcm(lcm, BigInteger.valueOf(n));
             }
         }
@@ -71,47 +91,46 @@ public class Task_31 implements ITask {
             return;
         }
 
-        validCount = 0;
-        for (int i = 0; i < grcnt; ++i) {
-            scores[i] = 0;
-        }
-        Arrays.fill(edgeMovesProbs[0], 0);
-        Arrays.fill(edgeMovesProbs[1], 0);
+        bSumVarProb = ZERO;
+        Arrays.fill(scores, ZERO);
+        Arrays.fill(edgeMoveProbs[0], ZERO);
+        Arrays.fill(edgeMoveProbs[1], ZERO);
+
         process(0);
 
-        System.out.println("Valid count: " + validCount);
+//        System.out.println(bSumVarProb);
 
         for (int i = 0; i < grcnt; ++i) {
             int n = group[i];
             if (isprime[n]) {
-                res[n] = n % 5 + 1;
+                res[n] = bd(n % 5 + 1);
             } else {
-                res[n] = scores[i] / validCount;
+                res[n] = divide(scores[i], bSumVarProb);
             }
         }
 
         for (int s = 1; s <= 6; ++s) {
-            probs[group[0]][s] = edgeMovesProbs[0][s] / validCount;
-            probs[group[grcnt - 1]][s] = edgeMovesProbs[1][s] / validCount;
+            moveProb[group[0]][s] = divide(edgeMoveProbs[0][s], bSumVarProb);
+            moveProb[group[grcnt - 1]][s] = divide(edgeMoveProbs[1][s], bSumVarProb);
         }
     }
 
+//    wrong: 92629129593000, 2223099110232000
+
     int moves[] = new int[15];
-    double scores[] = new double[15];
-    double varScores[] = new double[15];
-    double edgeMovesProbs[][] = new double[2][7];
-    double variantProbability;
-    int validCount;
+    BigDecimal scores[] = new BigDecimal[15];
+    BigDecimal varScores[] = new BigDecimal[15];
+    BigDecimal edgeMoveProbs[][] = new BigDecimal[2][7];
+    BigDecimal bVarProb;
+    BigDecimal bSumVarProb;
 
     private void process(int ind) {
         if (ind == grcnt) {
-            variantProbability = 1;
-
             if (countVariantScore()) {
-                for (int i = 0; i < grcnt - 1; ++i) {
-                    scores[i] += varScores[i] * variantProbability;
+                for (int i = 0; i < grcnt; ++i) {
+                    scores[i] = scores[i].add(varScores[i].multiply(bVarProb));
                 }
-                ++validCount;
+                bSumVarProb = bSumVarProb.add(bVarProb);
             }
             return;
         }
@@ -123,109 +142,111 @@ public class Task_31 implements ITask {
     }
 
     private boolean countVariantScore() {
-        for (int i = 0; i < grcnt - 1; ++i) {
-            varScores[0] = 0;
-            if (isprime[group[i]]) {
-                if (estimateInner(group[i], moves[i - 1], moves[i], moves[i + 1]) < 0) {
-                    return false;
-                }
-            }
-        }
+        bVarProb = bd(1);
+        Arrays.fill(varScores, ZERO);
 
         for (int i = 0; i < grcnt; ++i) {
             //крайние непростые
-            if (i == 0) {
-                varScores[i] += estimateEdge(group[i], moves[i], moves[i + 1]);
-            } else if (i == grcnt - 1) {
-                varScores[i] += estimateEdge(group[i], moves[i], moves[i - 1]);
+            if (i == 0 || i == grcnt - 1) {
+                varScores[i] = varScores[i].add(estimateEdge(group[i], moves[i]));
             } else {
-                varScores[i] += estimateInner(group[i], moves[i - 1], moves[i], moves[i + 1]);
+                BigDecimal v = estimateInner(group[i], moves[i - 1], moves[i], moves[i + 1]);
+                if (v == null) {
+                    return false;
+                }
+                varScores[i] = varScores[i].add(v);
             }
         }
-        edgeMovesProbs[0][moves[0]] += variantProbability;
-        edgeMovesProbs[1][moves[grcnt - 1]] += variantProbability;
+        edgeMoveProbs[0][moves[0]] = edgeMoveProbs[0][moves[0]].add(bVarProb);
+        edgeMoveProbs[1][moves[grcnt - 1]] = edgeMoveProbs[1][moves[grcnt - 1]].add(bVarProb);
         return true;
     }
 
-    private double estimateInner(int n, int prev, int self, int next) {
-        int n51 = n % 5 + 1;
+    private BigDecimal bd(double v) {
+        return new BigDecimal(v, mc);
+    }
+
+    private BigDecimal divide(BigDecimal b1, BigDecimal b2) {
+        return b1.divide(b2, mc);
+    }
+
+    private BigDecimal estimateInner(int n, int prev, int self, int next) {
+        int n51 = n % 5 + 1; //{1..5}
+        BigDecimal bn51 = bd(n51); //{1..5}
         if (isprime[n]) {
-            if (prev == next && prev == self) {
+            if (prev == next) {
                 // 0.5 => self
                 // 0.5 => 
                 //    n==2 => one of {1..6}
                 //    n!=2 => one of {2..7}
                 if (n51 == 1) {
-                    if (self != -1) {
-                        variantProbability = 0;
-                        return -1;
+                    if (self != 1) {
+                        bVarProb = ZERO;
+                        return null;
                     } else {
-                        variantProbability *= 0.5;
+                        bVarProb = bVarProb.multiply(bd(0.5));
                     }
                 } else {
+                    //n51 = {2..5}
                     double prob = self == n51 ? 0.5 : 0;
                     prob += 0.5 * 1.0/6.0;
-                    variantProbability *= prob;
+                    bVarProb = bVarProb.multiply(bd(prob));
                 }
 
-                return n51;
+                return bn51;
             } else {
                 if (n == 2 || self == n51) {
-                    return n51;
+                    return bn51;
                 }
 
-                return -1;
+                return null;
             }
         } else {
-            if (prev == next && prev == self) {
-                return estimateNormal(n, self, 1);
+            if (prev == next) {
+                return estimateNormal(n, self, BigDecimal.ONE);
             } else {
-                return n % 2 == 1 ? self : n51;
+                return n % 2 == 1 ? bd(self) : bn51;
             }
         }
     }
 
-    private double estimateEdge(int n, int self, int next) {
-        if (self != next) {
-            return estimateNormal(n, self, 0);
-        } else {
-            return estimateNormal(n, self, 1.0 / 6.0);
-
-        }
+    private BigDecimal estimateEdge(int n, int self) {
+        return estimateNormal(n, self, b16);
     }
 
-    private double estimateNormal(int n, double probSameSides) {
-        double r = 0;
-        for (int s = 1; s <= 6; ++s) {
-            r += estimateNormal(n, s, probSameSides);
-        }
-        return r;
-    }
-
-    private double estimateNormal(int n, int s, double probSameSides) {
-        double probDiffSides = 1 - probSameSides;
+    private BigDecimal estimateNormal(int n, int s, BigDecimal probSameSides) {
+        BigDecimal probDiffSides = BigDecimal.ONE.subtract(probSameSides);
+        BigDecimal bs = bd(s);
         if (n % 2 == 1) {
-            return probDiffSides * s +
-                   probSameSides * (
-                           0.5 * s + 0.5 * (
-                                   (2 + 3 + 4 + 5 + 6 + 7) * 1.0 / 6.0
+//            return probDiffSides * s +
+//                   probSameSides * (
+//                           0.5 * s +
+//                              0.5 * (
+//                                   (2 + 3 + 4 + 5 + 6 + 7) * 1.0 / 6.0
+//                              )
+//                   );
+            return probDiffSides.multiply(bs).add(
+                    probSameSides.multiply(
+                           b12.multiply(bs).add(
+                                b12.multiply(sum27div6)
                            )
-                   );
+                   )
+            );
         } else {
-            return (probDiffSides * (n % 5 + 1)) +
-                   probSameSides * (
-                           0.5 * s + 0.5 * (
-                                   (1 + 2 + 3 + 4 + 5 + 6) * 1.0 / 6.0
+//            return (probDiffSides * (n % 5 + 1)) +
+//                   probSameSides * (
+//                           0.5 * s + 0.5 * (
+//                                   (1 + 2 + 3 + 4 + 5 + 6) * 1.0 / 6.0
+//                           )
+//                   );
+            return probDiffSides.multiply(bd(n%5 + 1)).add(
+                    probSameSides.multiply(
+                           b12.multiply(bs).add(
+                                b12.multiply(sum16div6)
                            )
-                   );
+                   )
+            );
         }
     }
 
-    private boolean ok(double res) {
-        String fr = OtherUtils.formatDouble(res, 10);
-        int ind = fr.indexOf(".");
-        char d = fr.charAt(ind + 2);
-        System.out.println(fr + ": " + (d == '1'));
-        return d == '1';
-    }
 }
