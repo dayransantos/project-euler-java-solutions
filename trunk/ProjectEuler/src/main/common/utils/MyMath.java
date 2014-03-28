@@ -248,7 +248,7 @@ public class MyMath {
     }
 //    private static int MAX_PRIMES_TO_CACHE = 1500000;
 //    private static int MAX_PRIMES_TO_CACHE = 5800000;
-    private static int MAX_PRIMES_TO_CACHE = 500;
+    private static int MAX_PRIMES_TO_CACHE = 700000;
     public static void setMaxPrimesToCache(int maxPrimesToCache) {
         MAX_PRIMES_TO_CACHE = maxPrimesToCache;
     }
