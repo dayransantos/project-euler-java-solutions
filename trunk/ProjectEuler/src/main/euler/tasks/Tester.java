@@ -11,7 +11,7 @@ public class Tester {
         try {
             task.solving();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
 
         System.out.println("\nTask completed in: " + timeElapsed() + " ms.");
