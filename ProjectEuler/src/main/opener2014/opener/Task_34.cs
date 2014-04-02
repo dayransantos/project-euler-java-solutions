@@ -11,7 +11,6 @@ namespace ConsoleApplication2
     public static class Program
     {
         static Dictionary<byte, byte> bmap = new Dictionary<byte, byte>();
-        static Dictionary<byte, byte> brevmap = new Dictionary<byte, byte>();
 
         static void Main(string[] args)
         {
@@ -36,15 +35,9 @@ namespace ConsoleApplication2
                                         ) * 6.ToConstant() >> 24
                                     );
                 bmap[b] = nb;
-                brevmap[nb] = b;
             }
 
-            long u = 9223372036854775807L;
-            System.Console.WriteLine((u+1) >> 63);
-            for (int i = 1; i < 12; ++i)
-            {
-                outputToConstant(i);
-            }
+            System.Console.WriteLine((11.ToConstant() - 8.ToConstant()).GetBytes().Select(e => bmap[e]).Shuffle());
 
             //9430485476773810
             //40744039757350745
@@ -67,41 +60,6 @@ namespace ConsoleApplication2
             System.Console.WriteLine(Next());
             System.Console.WriteLine(Next());
             System.Console.WriteLine(Next());
-
-            System.Console.WriteLine();
-            long shuffled = -2;
-            shuffled = (
-                            (shuffled - 1)
-                            ^
-                            (
-                                (
-                                    (shuffled)
-                                    ^
-                                    1
-                                )
-                                &
-                                (
-                                    (shuffled - 1)
-                                    ^
-                                    (shuffled)
-                                    //в результате 00..111, где старшая единица
-                                    //соотв. младшей в shuffled + 8.ToConstant()
-                                )
-                                //если sh+8(2) заканч. 1, то здесь 0
-                                //иначе - число вида 100....001, где старшая идиница
-                                //соотв. младшей в shuffled + 8.ToConstant()
-                            )
-                            //число вида bbbbb11110, где старшая идиница
-                            //соотв. младшей в shuffled + 8.ToConstant()
-                            //первые цифры остаются такими же
-                        ) >> 63
-                        //либо 0000.., либо 11...
-                        //в зависимости от знака shuffled + 8.ToConstant()
-                        ;
-            System.Console.WriteLine(shuffled);
-            System.Console.WriteLine();
-
-
 
             Console.Read();
         }
