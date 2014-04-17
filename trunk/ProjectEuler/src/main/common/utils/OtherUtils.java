@@ -203,4 +203,12 @@ public class OtherUtils {
     public static int intCmp(int i1, int i2) {
         return new Integer(i1).compareTo(i2);
     }
+    
+    public static String replicate(String s, int n) {
+        String res = "";
+        for (int i = 0; i < n; ++i) {
+            res += s;
+        }
+        return res;
+    }
 }
