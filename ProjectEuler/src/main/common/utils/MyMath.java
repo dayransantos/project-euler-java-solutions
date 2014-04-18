@@ -248,7 +248,7 @@ public class MyMath {
     }
 //    private static int MAX_PRIMES_TO_CACHE = 1500000;
 //    private static int MAX_PRIMES_TO_CACHE = 5800000;
-    private static int MAX_PRIMES_TO_CACHE = 700000;
+    private static int MAX_PRIMES_TO_CACHE = 1300000;
     public static void setMaxPrimesToCache(int maxPrimesToCache) {
         MAX_PRIMES_TO_CACHE = maxPrimesToCache;
     }
@@ -632,6 +632,44 @@ public class MyMath {
         }
 
         return new BigInteger[]{lastx, lasty};
+    }
+    
+    //http://en.wikipedia.org/wiki/Chinese_remainder_theorem
+    public static long solveChineseRemainderTheorem(long[] a, long[] n, int length) {
+        return garnerRestore(a, n, length);
+    }
+
+    //it's actually solveChineseRemainderTheorem
+    //from: https://sites.google.com/site/indy256/algo/euclid
+    public static long simpleRestore(long[] a, long[] p, int length) {
+        long res = a[0];
+        long m = 1;
+        for (int i = 1; i < length; i++) {
+            m *= p[i - 1];
+            while (res % p[i] != a[i])
+                res += m;
+        }
+        return res;
+    }
+
+    //it's actually solveChineseRemainderTheorem
+    //from: https://sites.google.com/site/indy256/algo/euclid
+    public static long garnerRestore(long[] a, long[] p, int length) {
+        long[] x = new long[length];
+        for (int i = 0; i < length; ++i) {
+            x[i] = a[i];
+            for (int j = 0; j < i; ++j) {
+                x[i] = (int) modInverse(p[j], p[i]) * (x[i] - x[j]);
+                x[i] = (x[i] % p[i] + p[i]) % p[i];
+            }
+        }
+        long res = x[0];
+        int m = 1;
+        for (int i = 1; i < length; i++) {
+            m *= p[i - 1];
+            res += x[i] * m;
+        }
+        return res;
     }
 
     /**
