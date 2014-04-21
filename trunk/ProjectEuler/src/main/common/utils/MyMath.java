@@ -19,11 +19,28 @@ import static java.math.BigInteger.valueOf;
 
 public class MyMath {
     public static long pow10[] = {
-        1, 10, 100, 1000, 10000, 100000, 1000000, 10000000,
-        100000000, 1000000000, 10000000000L, 100000000000L
+        1,
+        10,
+        100,
+        1000,
+        10000,
+        100000,
+        1000000,
+        10000000,
+        100000000,
+        1000000000,
+        10000000000L,
+        100000000000L,
+        1000000000000L,
+        10000000000000L,
+        1000000000000000L,
+        10000000000000000L,
+        100000000000000000L,
+        1000000000000000000L
     };
 
     private static ArrayList<Long> cachedPrimes;
+    private static long lastCachedPrime;
 
     public static BigInteger gcd(BigInteger a, BigInteger b) {
         return a.gcd(b);
@@ -69,7 +86,7 @@ public class MyMath {
 
     public static boolean isPrime(long n) {
         initPrimesList();
-        if (n <= cachedPrimes.get(cachedPrimes.size() - 1)) {
+        if (n <= lastCachedPrime) {
             return Collections.binarySearch(cachedPrimes, n) >= 0;
         }
 
@@ -222,7 +239,7 @@ public class MyMath {
             }
         }
 
-        long last = cachedPrimes.get(cachedPrimes.size() - 1);
+        long last = lastCachedPrime;
         assert ((last & 1) != 0);
 
         for (long i = last + 2; i * i <= n; i += 2) {
@@ -247,8 +264,8 @@ public class MyMath {
         return all;
     }
 //    private static int MAX_PRIMES_TO_CACHE = 1500000;
-//    private static int MAX_PRIMES_TO_CACHE = 5800000;
-    private static int MAX_PRIMES_TO_CACHE = 1300000;
+    private static int MAX_PRIMES_TO_CACHE = 5800000;
+//    private static int MAX_PRIMES_TO_CACHE = 1300000;
     public static void setMaxPrimesToCache(int maxPrimesToCache) {
         MAX_PRIMES_TO_CACHE = maxPrimesToCache;
     }
@@ -272,6 +289,8 @@ public class MyMath {
             cachedPrimes.add(3L);
         } catch (IOException ignored) {
         }
+
+        lastCachedPrime = cachedPrimes.get(cachedPrimes.size() - 1);
     }
 
     public static long[] getCachedPrimes() {
