@@ -226,13 +226,10 @@ public class MyMath {
                 while (n % p == 0) {
                     n /= p;
                 }
-                if (n == 1) {
-                    return all;
-                }
             }
 
             if (p * p >= n) {
-                if (isPrime(n)) {
+                if (n != 1) {
                     all.add(n);
                 }
                 return all;
@@ -248,13 +245,10 @@ public class MyMath {
                 while (n % i == 0) {
                     n /= i;
                 }
-                if (n == 1) {
-                    return all;
-                }
             }
         }
 
-        if (isPrime(n)) {
+        if (n != 1) {
             all.add(n);
         }
 
