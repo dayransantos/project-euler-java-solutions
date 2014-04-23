@@ -39,13 +39,10 @@ public class Task_451 implements ITask {
                         n2 /= p;
                     }
                     factorCnt++;
-                    if (n2 == 1) {
-                        break;
-                    }
                 }
 
                 if (p * p >= n2) {
-                    if (MyMath.isPrime(n2)) {
+                    if (n2 != 1) {
                         factors[factorCnt++] = n2;
                     }
                     break;
