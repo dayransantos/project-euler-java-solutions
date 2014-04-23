@@ -123,25 +123,29 @@ public class Task_464 extends AbstractTask {
         long res = 0;
         for (int n = 1; n <= LIM; ++n) {
             progress10000(n);
-            if (f1[n] <= f1[n-1] && f2[n] <= f2[n-1]) {
-                //a == b
-//                System.out.println(n + " " + n);
-                res++;
-            }
+            if (meb[n] != 0) {
+                if (f1[n] <= f1[n - 1] && f2[n] <= f2[n - 1]) {
+                    //a == b
+                    //                System.out.println(n + " " + n);
+                    res++;
+                }
 
-//            SortedSet<Pair> h1 = t1.tailSet(m1[n]);
-//            SortedSet<Pair> h2 = t2.tailSet(m2[n]);
-            Pair k1 = mk1[n];
-            Pair k2 = mk2[n];
-            int r1 = t1.rank(k1);
-            int r2 = t2.rank(k2);
+                //            SortedSet<Pair> h1 = t1.tailSet(m1[n]);
+                //            SortedSet<Pair> h2 = t2.tailSet(m2[n]);
+                Pair k1 = mk1[n];
+                Pair k2 = mk2[n];
+                int r1 = t1.rank(k1);
+                int r2 = t2.rank(k2);
 
-            currn[0] = n;
-            outres[0] = 0;
-            if (r1 > r2) {
-                t1.tailProcess(k1, processor1);
+                currn[0] = n;
+                outres[0] = 0;
+                if (r1 > r2) {
+                    t1.tailProcess(k1, processor1);
+                } else {
+                    t2.tailProcess(k2, processor2);
+                }
             } else {
-                t2.tailProcess(k2, processor2);
+                outres[0]++;
             }
             res += outres[0];
             t1.put(m1[n - 1], m1[n - 1]);
