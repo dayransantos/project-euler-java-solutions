@@ -30,7 +30,7 @@ public class Task_464 extends AbstractTask {
     Pair m2[] = new Pair[LIM + 1];
 
     public void solving() {
-        MyMath.setMaxPrimesToCache(200000);
+        MyMath.setMaxPrimesToCache(2000000);
         long[] primes = MyMath.getCachedPrimes();
 
         System.out.println("Go");
@@ -39,6 +39,7 @@ public class Task_464 extends AbstractTask {
         m1[0] = new Pair(0, 0);
         m2[0] = new Pair(0, 0);
         for (n = 1; n <= LIM; ++n) {
+            progress100000(n);
             factorCnt = 0;
             long n2 = n;
             
