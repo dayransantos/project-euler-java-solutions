@@ -4,7 +4,7 @@ import utils.MyMath;
 import utils.log.Logger;
 import utils.structures.RedBlackBST;
 
-import java.util.List;
+import static utils.structures.RedBlackBST.Processor;
 
 //Answer :
 public class Task_464 extends AbstractTask {
@@ -14,8 +14,8 @@ public class Task_464 extends AbstractTask {
         Logger.close();
     }
     
-    public int LIM = 20000000;
-//    public int LIM = 10000;
+//    public int LIM = 20000000;
+    public int LIM = 20000;
 
     int n;
     int factorCnt;
@@ -27,7 +27,11 @@ public class Task_464 extends AbstractTask {
     int f2[] = new int[LIM + 1];
     Pair m1[] = new Pair[LIM + 1];
     Pair m2[] = new Pair[LIM + 1];
+    Pair mk1[] = new Pair[LIM + 1];
+    Pair mk2[] = new Pair[LIM + 1];
 
+    final int outres[] = new int[1];
+    final int currn[] = new int[1];
     public void solving() {
 //        99*(n(b) - n(a-1)) <= 100*(p(b) - p(a-1))
 //        99*(p(b) - p(a-1)) <= 100*(n(b) - n(a-1))
@@ -36,7 +40,7 @@ public class Task_464 extends AbstractTask {
 //        99*n(b) - 100*p(b) <= 99*n(a-1) - 100*p(a-1)
 //        99*p(b) - 100*n(b) <= 99*p(a-1) - 100*n(a-1)
 
-        MyMath.setMaxPrimesToCache(2000000);
+        MyMath.setMaxPrimesToCache(200000);
         long[] primes = MyMath.getCachedPrimes();
 
         System.out.println("Go");
@@ -85,11 +89,35 @@ public class Task_464 extends AbstractTask {
             f2[n] = 99*pos[n] - 100*neg[n];
             m1[n] = new Pair(n, f1[n]);
             m2[n] = new Pair(n, f2[n]);
+            
+            mk1[n] = new Pair(n, f1[n] - 1);
+            mk2[n] = new Pair(n, f2[n] - 1);
         }
 
-//        bruteForce();
+        timeStamp();
+        bruteForce();
+        timeStamp();
 
         System.out.println("-----------------");
+        Processor<Pair, Pair> processor1 = new Processor<Pair, Pair>() {
+            @Override
+            public void process(Pair k, Pair v) {
+                if (f2[k.n] >= f2[currn[0]]) {
+                    ++outres[0];
+//                        System.out.println(n + " " + (e.n+1));
+                }
+            }
+        };
+        Processor<Pair, Pair> processor2 = new Processor<Pair, Pair>() {
+            @Override
+            public void process(Pair k, Pair v) {
+                if (f1[k.n] >= f1[currn[0]]) {
+                    ++outres[0];
+//                        System.out.println(n + " " + (e.n+1));
+                }
+            }
+        };
+
         RedBlackBST<Pair, Pair> t1 = new RedBlackBST<>();
         RedBlackBST<Pair, Pair> t2 = new RedBlackBST<>();
         long res = 0;
@@ -103,27 +131,24 @@ public class Task_464 extends AbstractTask {
 
 //            SortedSet<Pair> h1 = t1.tailSet(m1[n]);
 //            SortedSet<Pair> h2 = t2.tailSet(m2[n]);
-            List<Pair> h1 = (List) t1.tail(new Pair(n, f1[n] - 1));
-            List<Pair> h2 = (List) t2.tail(new Pair(n, f2[n] - 1));
+            Pair k1 = mk1[n];
+            Pair k2 = mk2[n];
+            int r1 = t1.rank(k1);
+            int r2 = t2.rank(k2);
 
-            if (h1.size() < h2.size()) {
-                for (Pair e : h1) {
-                    if (f2[e.n] >= f2[n]) {
-//                        System.out.println(n + " " + (e.n+1));
-                        ++res;
-                    }
-                }
+            currn[0] = n;
+            outres[0] = 0;
+            if (r1 > r2) {
+                t1.tailProcess(k1, processor1);
             } else {
-                for (Pair e : h2) {
-                    if (f1[e.n] >= f1[n]) {
-//                        System.out.println(n + " " + (e.n+1));
-                        ++res;
-                    }
-                }
+                t2.tailProcess(k2, processor2);
             }
+            res += outres[0];
             t1.put(m1[n - 1], m1[n - 1]);
             t2.put(m2[n - 1], m1[n - 1]);
         }
+        timeStamp();
+
         System.out.println(res);
 
     }

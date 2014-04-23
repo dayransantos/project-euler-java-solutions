@@ -32,6 +32,9 @@ package utils.structures;
 import java.util.*;
 
 public class RedBlackBST<Key extends Comparable<Key>, Value> {
+    public interface Processor<Key, Value> {
+        void process(Key k, Value v);
+    }
 
     private static final boolean RED   = true;
     private static final boolean BLACK = false;
@@ -443,15 +446,29 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     }
 
     // the keys between lo and hi, as an Iterable
-    public Iterable<Key> tail(Key lo) {
-        return keys(lo, null);
+    public void tailProcess(Key lo, Processor<Key, Value> processor) {
+        process(lo, null, processor);
     }
     
     // the keys between lo and hi, as an Iterable
-    public Iterable<Key> head(Key hi) {
-        return keys(null, hi);
+    public void headProcess(Key hi, Processor<Key, Value> processor) {
+        process(null, hi, processor);
     }
     
+    public void process(Key lo, Key hi, Processor<Key, Value> processor) {
+        process(root, lo, hi, processor);
+    }
+
+    // add the keys between lo and hi in the subtree rooted at x
+    private void process(Node x, Key lo, Key hi, Processor<Key, Value> processor) {
+        if (x == null) return;
+        int cmplo = lo == null ? -1 : lo.compareTo(x.key);
+        int cmphi = hi == null ?  1 : hi.compareTo(x.key);
+        if (cmplo < 0) process(x.left, lo, hi, processor);
+        if (cmplo <= 0 && cmphi >= 0) processor.process(x.key, x.val);
+        if (cmphi > 0) process(x.right, lo, hi, processor);
+    }
+
     public Iterable<Key> keys(Key lo, Key hi) {
         List<Key> aggr = new ArrayList<>();
         // if (isEmpty() || lo.compareTo(hi) > 0) return queue;
