@@ -1,12 +1,10 @@
 package tasks;
 
-import java.io.IOException;
-
 public class Tester {
     private static long begTime;
 
     public static void test(ITask task) {
-        begTime = System.currentTimeMillis();
+        begTime = System.nanoTime();
 
         try {
             task.solving();
@@ -22,12 +20,12 @@ public class Tester {
     }
 
     public static long timeElapsed() {
-        return System.currentTimeMillis() - begTime;
+        return (System.nanoTime() - begTime)/1000000;
     }
 
     public static void test(Class<? extends ITask> taskClass, int times) {
         System.out.println("Running " + taskClass.getSimpleName() + ".");
-        long begTime = System.currentTimeMillis();
+        long begTime = System.nanoTime();
 
         try {
             ITask task = taskClass.getConstructor().newInstance();
@@ -38,7 +36,7 @@ public class Tester {
             ex.printStackTrace();
         }
 
-        long time = System.currentTimeMillis() - begTime;
-        System.out.println("Working time: " + time + " ms.");
+        long time = System.nanoTime() - begTime;
+        System.out.println("Working time: " + time/1000 + " ms.");
     }
 }
